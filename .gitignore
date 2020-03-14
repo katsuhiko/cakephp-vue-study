@@ -6,6 +6,12 @@
 /tmp/*
 /vendor/*
 
+# Laravel Mix specific files #
+##############################
+/node_modules
+/webroot/assets
+/webroot/mix-manifest.json
+
 # OS generated files #
 ######################
 .DS_Store

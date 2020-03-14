@@ -44,3 +44,12 @@ services:
       - db-data:/var/lib/mysql
     networks:
       - backend
+  watch:
+    image: node:12
+    container_name: watch
+    working_dir: /home/app
+    command: "npm run watch"
+    volumes:
+      - ./:/home/app
+    networks:
+      - frontend

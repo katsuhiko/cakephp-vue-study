@@ -8,11 +8,9 @@ docker run --rm -it -v "$(pwd):/home/app" -w /home/app katsuhikonagashima/php-fp
 ```
 
 ```
-apt-get install -y curl
 curl -sS https://getcomposer.org/installer | php
 
 php composer.phar create-project --prefer-dist cakephp/app:4.* cakephp-vue-study
-
 cp composer.phar ./cakephp-vue-study/
 exit
 ```
@@ -21,9 +19,60 @@ exit
 cd cakephp-vue-study/
 git init
 git add --all
-git commit -m "create cakephp project."
+git commit -m "create cakephp4 project."
 git remote add origin https://github.com/katsuhiko/cakephp-vue-study.git
 git push -u origin master
+```
+
+
+## Laravel Mix のインストール
+
+```
+cd ..
+docker run --rm -it -v "$(pwd):/home/app" -w /home/app katsuhikonagashima/php-fpm-base:7.4-buster /bin/bash
+```
+
+```
+curl -sS https://getcomposer.org/installer | php
+
+php composer.phar create-project --prefer-dist laravel/laravel laravel-template
+cd laravel-template
+php ../composer.phar require laravel/ui
+php artisan ui vue
+exit
+```
+
+```
+cd ./cakephp-vue-study/
+
+cp ../laravel-template/package.json ./
+cp ../laravel-template/webpack.mix.js ./
+
+mkdir -p ./assets
+cp -r ../laravel-template/resources/js ./assets/js
+cp -r ../laravel-template/resources/sass ./assets/sass
+
+docker run --rm -it -v "$(pwd):/home/app" -w /home/app node:12 npm install
+docker run --rm -it -v "$(pwd):/home/app" -w /home/app node:12 npm install --save-dev vue-router
+```
+
+./webpack.mix.js 変更 - CakePHP の形に合わせる
+
+```
+mix.setPublicPath('webroot')
+    .js('assets/js/app.js', 'assets/js')
+    .sass('assets/sass/app.scss', 'assets/css')
+    .sourceMaps().webpackConfig({devtool: 'source-map'});;
+```
+
+./.gitignore 追加 - 余計なファイルをリポジトリにあげないようにする
+
+```
+# Laravel Mix specific files #
+##############################
+/node_modules
+/webroot/assets
+/webroot/mix-manifest.json
 ```
 
 
