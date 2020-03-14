@@ -1,0 +1,46 @@
+version: '3.5'
+
+networks:
+  frontend:
+    driver: bridge
+  backend:
+    driver: bridge
+
+volumes:
+  db-data:
+    driver: local
+
+services:
+  web:
+    image: nginx:1.16-alpine
+    container_name: web
+    ports:
+      - 80:80
+    volumes:
+      - ./docker/local/nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ./:/var/www/html
+    networks:
+      - frontend
+      - backend
+  app:
+    build: ./docker/local/php-fpm
+    container_name: app
+    volumes:
+      - ./:/var/www/html
+    networks:
+      - backend
+  db:
+    image: mysql:5.7
+    container_name: db
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_DATABASE=default
+      - MYSQL_USER=default
+      - MYSQL_PASSWORD=secret
+      - MYSQL_ROOT_PASSWORD=root
+    volumes:
+      - ./docker/local/mysql/etc-mysql.cnf:/etc/mysql/conf.d/etc-mysql.cnf
+      - db-data:/var/lib/mysql
+    networks:
+      - backend
