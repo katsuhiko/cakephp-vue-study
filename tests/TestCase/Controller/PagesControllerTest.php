@@ -30,6 +30,26 @@ class PagesControllerTest extends TestCase
     use IntegrationTestTrait;
 
     /**
+     * @return void
+     */
+    public function testVueルートページを表示()
+    {
+        $this->get('/');
+        $this->assertResponseOk();
+        $this->assertResponseContains('<div id="app">');
+    }
+
+    /**
+     * @return void
+     */
+    public function testどんなアクセスでもVueルートページを表示()
+    {
+        $this->get('/hoge/bar');
+        $this->assertResponseOk();
+        $this->assertResponseContains('<div id="app">');
+    }
+
+    /**
      * testMultipleGet method
      *
      * @return void

@@ -1,6 +1,6 @@
 # Rule
 
-## コミット時のコメント
+## Commit時のコメントルール
 
 Angular のコメントルールを参考。
 
@@ -15,4 +15,11 @@ refactor    : バグを修正も機能も追加しないコード変更
 perf        : パフォーマンスを向上させるコード変更
 test        : 欠けているテストや既存のテストの修正
 chore       : ビルドプロセスの変更、あるいは文書生成などの補助ツールやライブラリーの変更
+```
+
+
+## Commit＆Push 前にすること
+
+```
+docker exec -it app php composer.phar check
 ```

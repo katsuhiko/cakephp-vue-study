@@ -31,7 +31,11 @@ use Cake\View\Exception\MissingTemplateException;
  */
 class PagesController extends AppController
 {
-
+    /**
+     * Vue.js のルートページ用です。
+     *
+     * @return \Cake\Http\Response|null
+     */
     public function index(): ?Response
     {
         return $this->render();
