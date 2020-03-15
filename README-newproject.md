@@ -83,3 +83,22 @@ docker-compose を動かすためのファイルを用意
 - ./docker-compose.yml の作成
 - ./docker/local/ 配下の各種ファイルの作成
 - ./config/app_local.php のDB接続情報を変更
+
+
+## phpstan の導入
+
+```
+docker run --rm -v $(pwd):/app php composer.phar require --dev phpstan/phpstan
+```
+
+./phpstan.neon の作成
+
+```
+parameters:
+    level: 8
+    excludes_analyse:
+        - src/Console/Installer.php
+        - src/Controller/PagesController.php
+```
+
+./composer.json の script で、 check 実行時に phpstan も動くようにする。

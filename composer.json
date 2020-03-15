@@ -16,6 +16,7 @@
         "cakephp/cakephp-codesniffer": "~4.0.0",
         "cakephp/debug_kit": "^4.0",
         "josegonzalez/dotenv": "^3.2",
+        "phpstan/phpstan": "^0.12.14",
         "phpunit/phpunit": "^8.5",
         "psy/psysh": "@stable"
     },
@@ -40,8 +41,9 @@
         "post-create-project-cmd": "App\\Console\\Installer::postInstall",
         "post-autoload-dump": "Cake\\Composer\\Installer\\PluginInstaller::postAutoloadDump",
         "check": [
-            "@test",
-            "@cs-check"
+            "@stan",
+            "@cs-check",
+            "@test"
         ],
         "cs-check": "phpcs --colors -p --standard=vendor/cakephp/cakephp-codesniffer/CakePHP src/ tests/",
         "cs-fix": "phpcbf --colors --standard=vendor/cakephp/cakephp-codesniffer/CakePHP src/ tests/",
