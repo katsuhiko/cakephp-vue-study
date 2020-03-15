@@ -88,7 +88,7 @@ docker-compose を動かすためのファイルを用意
 ## phpstan の導入
 
 ```
-docker run --rm -v $(pwd):/app php composer.phar require --dev phpstan/phpstan
+docker exec -it app php composer.phar require --dev phpstan/phpstan
 ```
 
 ./phpstan.neon の作成
@@ -102,3 +102,10 @@ parameters:
 ```
 
 ./composer.json の script で、 check 実行時に phpstan も動くようにする。
+
+
+## 利用している主要プロダクトのリリース情報
+
+- https://github.com/cakephp/cakephp/releases
+- https://github.com/vuejs/vue/releases
+- https://github.com/JeffreyWay/laravel-mix/releases
