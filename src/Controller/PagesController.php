@@ -38,6 +38,8 @@ class PagesController extends AppController
      */
     public function index(): ?Response
     {
+        $this->getRequest()->getSession()->write('key', 'value');
+
         return $this->render();
     }
 

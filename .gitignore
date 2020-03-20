@@ -6,6 +6,9 @@
 /tmp/*
 /vendor/*
 
+# Migration
+schema-dump-default.lock
+
 # Laravel Mix specific files #
 ##############################
 /node_modules

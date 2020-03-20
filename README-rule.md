@@ -23,3 +23,36 @@ chore       : ビルドプロセスの変更、あるいは文書生成などの
 ```
 docker exec -it app php composer.phar check
 ```
+
+
+## DBマイグレーション
+
+```
+docker exec -it app bin/cake bake migration CreateTasks
+docker exec -it app bin/cake migrations migrate
+docker exec -it app bin/cake migrations rollback
+```
+
+- マイグレーションファイル名のパターン
+    - https://book.cakephp.org/migrations/3/en/index.html#migrations-file-name
+
+| パターン | 説明 | 例 |
+| --- | --- | --- |
+| (/^(Create)(.*)/)           | テーブル作成 | CreateTasks                |
+| (/^(Drop)(.*)/)             | テーブル削除 | DropTasks                  |
+| (/^(Add).*(?:To)(.*)/)      | カラム追加   | AddDescriptionToTasks      |
+| (/^(Remove).*(?:From)(.*)/) | カラム削除   | RemoveDescriptionFromTasks |
+| (/^(Alter)(.*)/)            | テーブル変更 | AlterTasks                 |
+| (/^(Alter).*(?:On)(.*)/)    | カラム変更   | AlterDescriptionOnTasks    |
+
+- change メソッドで使えるコマンド
+    - https://book.cakephp.org/phinx/0/en/migrations.html#the-change-method
+
+```
+createTable
+renameTable
+addColumn
+renameColumn
+addIndex
+addForeignKey
+```

@@ -396,6 +396,8 @@ return [
      * To use database sessions, load the SQL file located at config/schema/sessions.sql
      */
     'Session' => [
-        'defaults' => 'php',
+        'defaults' => 'database',
+        'cookie' => env('APP_NAME'),
+        'timeout' => 1440, // 1day(単位：分)
     ],
 ];
