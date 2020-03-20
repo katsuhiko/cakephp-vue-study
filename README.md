@@ -1,4 +1,4 @@
-# CakePHP Vue Template
+# CakePHP Vue Study
 
 
 ## インストール
