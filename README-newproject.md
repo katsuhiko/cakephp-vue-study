@@ -28,7 +28,7 @@ git push -u origin master
 ## Security Salt の生成
 
 ```
-docker run --rm -it debian:10 sh -c "echo $(cat /dev/urandom | LC_CTYPE=C tr -dc '[:alnum:]' | head -c 64)"
+docker run --rm -it debian:10 sh -c "cat /dev/urandom | LC_CTYPE=C tr -dc '[:alnum:]' | head -c 64; echo ''; sleep 1"
 ```
 
 ./config/.env.example の SECURITY_SALT へセットする
