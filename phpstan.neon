@@ -1,5 +1,5 @@
 parameters:
-    level: 8
+    level: max
     excludes_analyse:
         - src/Console/Installer.php
         - src/Controller/PagesController.php
