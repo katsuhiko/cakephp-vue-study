@@ -399,5 +399,9 @@ return [
         'defaults' => 'database',
         'cookie' => env('APP_NAME'),
         'timeout' => 1440, // 1day(単位：分)
+        'ini' => [
+            'session.cookie_secure' => filter_var(env('SERVER', false), FILTER_VALIDATE_BOOLEAN),
+            'session.cookie_path' => '/',
+        ]
     ],
 ];
