@@ -53,6 +53,7 @@ return [
              * set it here.
              */
             //'schema' => 'myapp',
+            'log' => true,
 
             /**
              * You can use a DSN string to set the entire configuration
