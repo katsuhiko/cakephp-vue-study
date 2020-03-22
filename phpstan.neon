@@ -1,5 +1,11 @@
 parameters:
-    level: max
-    excludes_analyse:
-        - src/Console/Installer.php
-        - src/Controller/PagesController.php
+  level: max
+  excludes_analyse:
+    - src/Console/Installer.php
+    - src/Controller/PagesController.php
+  ignoreErrors:
+    - '#Property App\\Model\\Entity\\[a-zA-Z0-9\\_]+::\$_accessible type has no value type specified in iterable type array.#'
+    - '#Method App\\Model\\Table\\[a-zA-Z0-9\\_]+::initialize\(\) has parameter \$config with no value type specified in iterable type array.#'
+    - '#Method App\\Model\\Table\\[a-zA-Z0-9\\_]+::validationDefault\(\) has parameter \$validator with no value type specified in iterable type Cake\\Validation\\Validator.#'
+    - '#Method App\\Model\\Table\\[a-zA-Z0-9\\_]+::validationDefault\(\) return type has no value type specified in iterable type Cake\\Validation\\Validator.#'
+  reportUnmatchedIgnoredErrors: false

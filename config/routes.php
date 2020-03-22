@@ -21,6 +21,7 @@
  * @license       https://opensource.org/licenses/mit-license.php MIT License
  */
 
+use Cake\Http\Middleware\BodyParserMiddleware;
 use Cake\Http\Middleware\CsrfProtectionMiddleware;
 use Cake\Routing\Route\DashedRoute;
 use Cake\Routing\RouteBuilder;
@@ -44,6 +45,21 @@ use Cake\Routing\RouteBuilder;
  */
 /** @var \Cake\Routing\RouteBuilder $routes */
 $routes->setRouteClass(DashedRoute::class);
+
+// API
+$routes->scope('/api', ['prefix' => 'api'], function (RouteBuilder $builder) {
+    $builder->registerMiddleware('bodies', new BodyParserMiddleware());
+    $builder->applyMiddleware('bodies');
+
+    $builder->setExtensions(['json']);
+
+    // Tasks
+    $builder->connect('/tasks/search', ['controller' => 'Tasks', 'action' => 'search'])->setMethods(['GET']);
+    $builder->connect('/tasks/detail/:id', ['controller' => 'Tasks', 'action' => 'detail'])->setPass(['id'])->setMethods(['GET']);
+    $builder->connect('/tasks/create', ['controller' => 'Tasks', 'action' => 'create'])->setMethods(['POST']);
+    $builder->connect('/tasks/update/:id', ['controller' => 'Tasks', 'action' => 'update'])->setPass(['id'])->setMethods(['PUT']);
+    $builder->connect('/tasks/delete/:id', ['controller' => 'Tasks', 'action' => 'delete'])->setPass(['id'])->setMethods(['DELETE']);
+});
 
 $routes->scope('/', function (RouteBuilder $builder) {
     // Register scoped middleware for in scopes.
