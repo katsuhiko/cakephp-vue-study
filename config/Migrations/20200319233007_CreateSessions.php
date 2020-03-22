@@ -16,32 +16,11 @@ class CreateSessions extends AbstractMigration
     public function change()
     {
         $this->table('sessions', ['id' => false, 'primary_key' => ['id']])
-            ->addColumn('id', 'string', [
-                'default' => null,
-                'limit' => 40,
-                'null' => false,
-            ])
-            ->addColumn('data', 'blob', [
-                'default' => null,
-                'limit' => null,
-                'null' => true,
-            ])
-            ->addColumn('expires', 'integer', [
-                'default' => null,
-                'limit' => 11,
-                'null' => false,
-            ])
-            ->addColumn('created', 'timestamp', [
-                'default' => 'CURRENT_TIMESTAMP',
-                'limit' => null,
-                'null' => true,
-            ])
-            ->addColumn('modified', 'timestamp', [
-                'default' => 'CURRENT_TIMESTAMP',
-                'update' => 'CURRENT_TIMESTAMP',
-                'limit' => null,
-                'null' => true,
-            ])
+            ->addColumn('id', 'string', ['default' => null, 'limit' => 40, 'null' => false])
+            ->addColumn('data', 'blob', ['default' => null, 'limit' => null, 'null' => true])
+            ->addColumn('expires', 'integer', ['default' => null, 'limit' => 11, 'null' => false])
+            ->addColumn('created', 'timestamp', ['default' => 'CURRENT_TIMESTAMP', 'limit' => null, 'null' => false])
+            ->addColumn('modified', 'timestamp', ['default' => 'CURRENT_TIMESTAMP', 'update' => 'CURRENT_TIMESTAMP', 'limit' => null, 'null' => false])
             ->create();
     }
 }
