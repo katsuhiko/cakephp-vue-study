@@ -32,7 +32,7 @@ class PagesControllerTest extends TestCase
     /**
      * @return void
      */
-    public function testVueルートページを表示()
+    public function test_Vueルートページを表示()
     {
         $this->get('/');
         $this->assertResponseOk();
@@ -42,7 +42,7 @@ class PagesControllerTest extends TestCase
     /**
      * @return void
      */
-    public function testどんなアクセスでもVueルートページを表示()
+    public function test_どんなアクセスでもVueルートページを表示()
     {
         $this->get('/hoge/bar');
         $this->assertResponseOk();
