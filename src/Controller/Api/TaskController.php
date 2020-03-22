@@ -7,17 +7,20 @@ use App\Controller\AppController;
 use App\Exception\ApplicationException;
 
 /**
- * Tasks Controller
+ * Task Controller
  *
  * @property \App\Model\Table\TasksTable $Tasks
  */
-class TasksController extends AppController
+class TaskController extends AppController
 {
     /**
+     * Search method
+     *
      * @return void
      */
     public function search(): void
     {
+        $this->loadModel('Tasks');
         $tasks = $this->Tasks->find()->all();
 
         $this->set('tasks', $tasks);
@@ -25,11 +28,14 @@ class TasksController extends AppController
     }
 
     /**
-     * @param string $id id
+     * Detail method
+     *
+     * @param string $id id.
      * @return void
      */
     public function detail(string $id): void
     {
+        $this->loadModel('Tasks');
         $task = $this->Tasks->get($id);
 
         $this->set('task', $task);
@@ -37,10 +43,14 @@ class TasksController extends AppController
     }
 
     /**
+     * Create method
+     *
      * @return void
+     * @throws \App\Exception\ApplicationException
      */
     public function create(): void
     {
+        $this->loadModel('Tasks');
         $data = $this->request->getData();
 
         $task = $this->Tasks->newEntity($data);
@@ -60,11 +70,15 @@ class TasksController extends AppController
     }
 
     /**
+     * Update method
+     *
      * @param string $id id
      * @return void
+     * @throws \App\Exception\ApplicationException
      */
     public function update(string $id): void
     {
+        $this->loadModel('Tasks');
         $data = $this->request->getData();
         $task = $this->Tasks->get($id);
 
@@ -85,11 +99,15 @@ class TasksController extends AppController
     }
 
     /**
+     * Delete method
+     *
      * @param string $id id
      * @return void
+     * @throws \App\Exception\ApplicationException
      */
     public function delete(string $id): void
     {
+        $this->loadModel('Tasks');
         $task = $this->Tasks->get($id);
 
         if (!$this->Tasks->delete($task)) {

@@ -53,12 +53,12 @@ $routes->scope('/api', ['prefix' => 'api'], function (RouteBuilder $builder) {
 
     $builder->setExtensions(['json']);
 
-    // Tasks
-    $builder->connect('/tasks/search', ['controller' => 'Tasks', 'action' => 'search'])->setMethods(['GET']);
-    $builder->connect('/tasks/detail/:id', ['controller' => 'Tasks', 'action' => 'detail'])->setPass(['id'])->setMethods(['GET']);
-    $builder->connect('/tasks/create', ['controller' => 'Tasks', 'action' => 'create'])->setMethods(['POST']);
-    $builder->connect('/tasks/update/:id', ['controller' => 'Tasks', 'action' => 'update'])->setPass(['id'])->setMethods(['PUT']);
-    $builder->connect('/tasks/delete/:id', ['controller' => 'Tasks', 'action' => 'delete'])->setPass(['id'])->setMethods(['DELETE']);
+    // Task
+    $builder->connect('/task/search', ['controller' => 'Task', 'action' => 'search'])->setMethods(['GET']);
+    $builder->connect('/task/detail/:id', ['controller' => 'Task', 'action' => 'detail'])->setPass(['id'])->setMethods(['GET']);
+    $builder->connect('/task/create', ['controller' => 'Task', 'action' => 'create'])->setMethods(['POST']);
+    $builder->connect('/task/update/:id', ['controller' => 'Task', 'action' => 'update'])->setPass(['id'])->setMethods(['PUT']);
+    $builder->connect('/task/delete/:id', ['controller' => 'Task', 'action' => 'delete'])->setPass(['id'])->setMethods(['DELETE']);
 });
 
 $routes->scope('/', function (RouteBuilder $builder) {
