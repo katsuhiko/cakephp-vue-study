@@ -44,10 +44,10 @@ return [
              */
             //'port' => 'non_standard_port_number',
 
-            'username' => 'default',
-            'password' => 'secret',
+            'username' => 'root',
+            'password' => 'root',
 
-            'database' => 'default',
+            'database' => 'app_default',
             /**
              * If not using the default 'public' schema with the PostgreSQL driver
              * set it here.
@@ -65,11 +65,11 @@ return [
          * The test connection is used during the test suite.
          */
         'test' => [
-            'host' => 'localhost',
+            'host' => 'db',
             //'port' => 'non_standard_port_number',
-            'username' => 'default',
-            'password' => 'secret',
-            'database' => 'test_myapp',
+            'username' => 'root',
+            'password' => 'root',
+            'database' => 'app_test',
             //'schema' => 'myapp',
         ],
     ],

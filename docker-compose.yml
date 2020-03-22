@@ -35,12 +35,13 @@ services:
     ports:
       - 3306:3306
     environment:
-      - MYSQL_DATABASE=default
+      - MYSQL_DATABASE=app_default
       - MYSQL_USER=default
       - MYSQL_PASSWORD=secret
       - MYSQL_ROOT_PASSWORD=root
     volumes:
       - ./docker/local/mysql/etc-mysql.cnf:/etc/mysql/conf.d/etc-mysql.cnf
+      - ./docker/local/mysql/init:/docker-entrypoint-initdb.d
       - db-data:/var/lib/mysql
     networks:
       - backend
