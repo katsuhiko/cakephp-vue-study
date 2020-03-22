@@ -32,7 +32,7 @@ class PagesControllerTest extends TestCase
     /**
      * @return void
      */
-    public function test_Vueルートページを表示()
+    public function test_Vueルートページを表示(): void
     {
         $this->get('/');
         $this->assertResponseOk();
@@ -42,7 +42,7 @@ class PagesControllerTest extends TestCase
     /**
      * @return void
      */
-    public function test_どんなアクセスでもVueルートページを表示()
+    public function test_どんなアクセスでもVueルートページを表示(): void
     {
         $this->get('/hoge/bar');
         $this->assertResponseOk();
@@ -54,7 +54,7 @@ class PagesControllerTest extends TestCase
      *
      * @return void
      */
-    public function testMultipleGet()
+    public function testMultipleGet(): void
     {
         $this->get('/');
         $this->assertResponseOk();
@@ -67,7 +67,7 @@ class PagesControllerTest extends TestCase
      *
      * @return void
      */
-    public function testDisplay()
+    public function testDisplay(): void
     {
         $this->get('/pages/home');
         $this->assertResponseOk();
@@ -80,7 +80,7 @@ class PagesControllerTest extends TestCase
      *
      * @return void
      */
-    public function testMissingTemplate()
+    public function testMissingTemplate(): void
     {
         Configure::write('debug', false);
         $this->get('/pages/not_existing');
@@ -94,7 +94,7 @@ class PagesControllerTest extends TestCase
      *
      * @return void
      */
-    public function testMissingTemplateInDebug()
+    public function testMissingTemplateInDebug(): void
     {
         Configure::write('debug', true);
         $this->get('/pages/not_existing');
@@ -110,7 +110,7 @@ class PagesControllerTest extends TestCase
      *
      * @return void
      */
-    public function testDirectoryTraversalProtection()
+    public function testDirectoryTraversalProtection(): void
     {
         $this->get('/pages/../Layout/ajax');
         $this->assertResponseCode(403);
@@ -120,9 +120,9 @@ class PagesControllerTest extends TestCase
     /**
      * Test that CSRF protection is applied to page rendering.
      *
-     * @reutrn void
+     * @return void
      */
-    public function testCsrfAppliedError()
+    public function testCsrfAppliedError(): void
     {
         $this->post('/pages/home', ['hello' => 'world']);
 
@@ -133,9 +133,9 @@ class PagesControllerTest extends TestCase
     /**
      * Test that CSRF protection is applied to page rendering.
      *
-     * @reutrn void
+     * @return void
      */
-    public function testCsrfAppliedOk()
+    public function testCsrfAppliedOk(): void
     {
         $this->enableCsrfToken();
         $this->post('/pages/home', ['hello' => 'world']);
