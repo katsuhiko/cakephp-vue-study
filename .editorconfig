@@ -14,7 +14,7 @@ trim_trailing_whitespace = true
 [*.bat]
 end_of_line = crlf
 
-[*.{yml,json,scss,html,js,vue}]
+[*.{yml,json,scss,html,js,vue,neon}]
 indent_size = 2
 
 [*.md]
