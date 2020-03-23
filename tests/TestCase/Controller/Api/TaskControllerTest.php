@@ -102,7 +102,7 @@ class TaskControllerTest extends TestCase
     public function test_更新できること(): void
     {
         // Arrange
-        $tasks = Fabricate::create('Tasks');
+        $tasks = Fabricate::create('Tasks', ['description' => 'created']);
         $data = ['description' => 'updated'];
 
         // Act
