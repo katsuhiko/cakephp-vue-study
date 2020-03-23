@@ -14,9 +14,7 @@ docker run --rm -it -v "$(pwd):/home/app" -w /home/app node:12 npm install
 
 docker-compose up -d
 docker exec -it app php composer.phar install
-
 docker exec -it app bin/cake migrations migrate
-
 docker exec -it app php composer.phar check
 ```
 
