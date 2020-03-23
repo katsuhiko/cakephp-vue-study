@@ -92,6 +92,8 @@ class TaskControllerTest extends TestCase
 
         // Assert
         $this->assertResponseOk();
+        $actual = json_decode((string)$this->_response->getBody(), true);
+        $this->assertNotNull($actual['task']['id']);
     }
 
     /**
