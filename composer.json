@@ -18,7 +18,8 @@
         "josegonzalez/dotenv": "^3.2",
         "phpstan/phpstan": "^0.12.14",
         "phpunit/phpunit": "^8.5",
-        "psy/psysh": "@stable"
+        "psy/psysh": "@stable",
+        "sizuhiko/cake_fabricate": "dev-cakephp4"
     },
     "suggest": {
         "markstory/asset_compress": "An asset compression plugin which provides file concatenation and a flexible filter system for preprocessing and minification.",

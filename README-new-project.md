@@ -113,6 +113,15 @@ parameters:
 ./composer.json の script で、 check 実行時に phpstan も動くようにする。
 
 
+## Fabricate の導入
+
+https://github.com/sizuhiko/cakephp-fabricate-adaptor/tree/cakephp4
+
+```
+docker exec -it app php composer.phar require --dev sizuhiko/cake_fabricate:dev-cakephp4
+```
+
+
 ## 利用している主要プロダクトのリリース情報
 
 - https://github.com/cakephp/cakephp/releases
