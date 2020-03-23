@@ -1,5 +1,4 @@
 <?php
-
 declare(strict_types=1);
 
 use Migrations\AbstractMigration;
@@ -13,7 +12,7 @@ class CreateTasks extends AbstractMigration
      * http://docs.phinx.org/en/latest/migrations.html#the-change-method
      * @return void
      */
-    public function change()
+    public function change(): void
     {
         $this->table('tasks', ['id' => false, 'primary_key' => ['id']])
             ->addColumn('id', 'uuid', ['default' => null, 'null' => false])
