@@ -16,7 +16,7 @@ declare(strict_types=1);
  */
 namespace App\Test\TestCase\Controller;
 
-use Cake\Core\Configure;
+//use Cake\Core\Configure;
 use Cake\TestSuite\IntegrationTestTrait;
 use Cake\TestSuite\TestCase;
 
@@ -49,98 +49,98 @@ class PagesControllerTest extends TestCase
         $this->assertResponseContains('<div id="app">');
     }
 
-    /**
-     * testMultipleGet method
-     *
-     * @return void
-     */
-    public function testMultipleGet(): void
-    {
-        $this->get('/');
-        $this->assertResponseOk();
-        $this->get('/');
-        $this->assertResponseOk();
-    }
+    // /**
+    //  * testMultipleGet method
+    //  *
+    //  * @return void
+    //  */
+    // public function testMultipleGet(): void
+    // {
+    //     $this->get('/');
+    //     $this->assertResponseOk();
+    //     $this->get('/');
+    //     $this->assertResponseOk();
+    // }
 
-    /**
-     * testDisplay method
-     *
-     * @return void
-     */
-    public function testDisplay(): void
-    {
-        $this->get('/pages/home');
-        $this->assertResponseOk();
-        $this->assertResponseContains('CakePHP');
-        $this->assertResponseContains('<html>');
-    }
+    // /**
+    //  * testDisplay method
+    //  *
+    //  * @return void
+    //  */
+    // public function testDisplay(): void
+    // {
+    //     $this->get('/pages/home');
+    //     $this->assertResponseOk();
+    //     $this->assertResponseContains('CakePHP');
+    //     $this->assertResponseContains('<html>');
+    // }
 
-    /**
-     * Test that missing template renders 404 page in production
-     *
-     * @return void
-     */
-    public function testMissingTemplate(): void
-    {
-        Configure::write('debug', false);
-        $this->get('/pages/not_existing');
+    // /**
+    //  * Test that missing template renders 404 page in production
+    //  *
+    //  * @return void
+    //  */
+    // public function testMissingTemplate(): void
+    // {
+    //     Configure::write('debug', false);
+    //     $this->get('/pages/not_existing');
 
-        $this->assertResponseError();
-        $this->assertResponseContains('Error');
-    }
+    //     $this->assertResponseError();
+    //     $this->assertResponseContains('Error');
+    // }
 
-    /**
-     * Test that missing template in debug mode renders missing_template error page
-     *
-     * @return void
-     */
-    public function testMissingTemplateInDebug(): void
-    {
-        Configure::write('debug', true);
-        $this->get('/pages/not_existing');
+    // /**
+    //  * Test that missing template in debug mode renders missing_template error page
+    //  *
+    //  * @return void
+    //  */
+    // public function testMissingTemplateInDebug(): void
+    // {
+    //     Configure::write('debug', true);
+    //     $this->get('/pages/not_existing');
 
-        $this->assertResponseFailure();
-        $this->assertResponseContains('Missing Template');
-        $this->assertResponseContains('Stacktrace');
-        $this->assertResponseContains('not_existing.php');
-    }
+    //     $this->assertResponseFailure();
+    //     $this->assertResponseContains('Missing Template');
+    //     $this->assertResponseContains('Stacktrace');
+    //     $this->assertResponseContains('not_existing.php');
+    // }
 
-    /**
-     * Test directory traversal protection
-     *
-     * @return void
-     */
-    public function testDirectoryTraversalProtection(): void
-    {
-        $this->get('/pages/../Layout/ajax');
-        $this->assertResponseCode(403);
-        $this->assertResponseContains('Forbidden');
-    }
+    // /**
+    //  * Test directory traversal protection
+    //  *
+    //  * @return void
+    //  */
+    // public function testDirectoryTraversalProtection(): void
+    // {
+    //     $this->get('/pages/../Layout/ajax');
+    //     $this->assertResponseCode(403);
+    //     $this->assertResponseContains('Forbidden');
+    // }
 
-    /**
-     * Test that CSRF protection is applied to page rendering.
-     *
-     * @return void
-     */
-    public function testCsrfAppliedError(): void
-    {
-        $this->post('/pages/home', ['hello' => 'world']);
+    // /**
+    //  * Test that CSRF protection is applied to page rendering.
+    //  *
+    //  * @return void
+    //  */
+    // public function testCsrfAppliedError(): void
+    // {
+    //     $this->post('/pages/home', ['hello' => 'world']);
 
-        $this->assertResponseCode(403);
-        $this->assertResponseContains('CSRF');
-    }
+    //     $this->assertResponseCode(403);
+    //     $this->assertResponseContains('CSRF');
+    // }
 
-    /**
-     * Test that CSRF protection is applied to page rendering.
-     *
-     * @return void
-     */
-    public function testCsrfAppliedOk(): void
-    {
-        $this->enableCsrfToken();
-        $this->post('/pages/home', ['hello' => 'world']);
+    // /**
+    //  * Test that CSRF protection is applied to page rendering.
+    //  *
+    //  * @return void
+    //  */
+    // public function testCsrfAppliedOk(): void
+    // {
+    //     $this->enableCsrfToken();
+    //     $this->post('/pages/home', ['hello' => 'world']);
 
-        $this->assertResponseCode(200);
-        $this->assertResponseContains('CakePHP');
-    }
+    //     $this->assertResponseCode(200);
+    //     $this->assertResponseContains('CakePHP');
+    // }
 }

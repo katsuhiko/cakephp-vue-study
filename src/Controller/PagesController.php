@@ -40,8 +40,8 @@ class PagesController extends AppController
     {
         $this->getRequest()->getSession()->write('key', 'value');
 
-        $this->log("debug log!!", 'debug');
-        $this->log("error log!!", 'error');
+        // $this->log("debug log!!", 'debug');
+        // $this->log("error log!!", 'error');
 
         return $this->render();
     }
