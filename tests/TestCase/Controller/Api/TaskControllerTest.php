@@ -5,6 +5,7 @@ namespace App\Test\TestCase\Controller\Api;
 
 use Cake\TestSuite\IntegrationTestTrait;
 use Cake\TestSuite\TestCase;
+use Fabricate\Fabricate;
 
 /**
  * App\Controller\Api\TaskController Test Case
@@ -25,43 +26,92 @@ class TaskControllerTest extends TestCase
     ];
 
     /**
-     * Test index method
+     * setUp method
      *
      * @return void
      */
-    public function testIndex(): void
+    public function setUp(): void
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $this->configRequest([
+            'headers' => [
+                'Accept' => 'application/json',
+            ],
+        ]);
     }
 
     /**
-     * Test view method
+     * Test search method
      *
      * @return void
      */
-    public function testView(): void
+    public function test_全件取得できること(): void
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        // Arrange
+        Fabricate::create('Tasks', 3);
+
+        // Act
+        $this->get('/api/task/search.json');
+
+        // Assert
+        $this->assertResponseOk();
+        $actual = json_decode((string)$this->_response->getBody(), true);
+        $this->assertEquals(3, count($actual['tasks']));
     }
 
     /**
-     * Test add method
+     * Test detail method
      *
      * @return void
      */
-    public function testAdd(): void
+    public function test_該当1件を取得できること(): void
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        // Arrange
+        $tasks = Fabricate::create('Tasks');
+
+        // Act
+        $this->get("/api/task/detail/{$tasks[0]->id}.json");
+
+        // Assert
+        $this->assertResponseOk();
+        $actual = json_decode((string)$this->_response->getBody(), true);
+        $this->assertEquals($tasks[0]->id, $actual['task']['id']);
     }
 
     /**
-     * Test edit method
+     * Test create method
      *
      * @return void
      */
-    public function testEdit(): void
+    public function test_登録できること(): void
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        // Arrange
+        $data = ['description' => 'created'];
+
+        // Act
+        $this->post('/api/task/create.json', $data);
+
+        // Assert
+        $this->assertResponseOk();
+    }
+
+    /**
+     * Test update method
+     *
+     * @return void
+     */
+    public function test_更新できること(): void
+    {
+        // Arrange
+        $tasks = Fabricate::create('Tasks');
+        $data = ['description' => 'updated'];
+
+        // Act
+        $this->put("/api/task/update/{$tasks[0]->id}.json", $data);
+
+        // Assert
+        $this->assertResponseOk();
+        $actual = json_decode((string)$this->_response->getBody(), true);
+        $this->assertEquals($tasks[0]->id, $actual['task']['id']);
     }
 
     /**
@@ -69,8 +119,15 @@ class TaskControllerTest extends TestCase
      *
      * @return void
      */
-    public function testDelete(): void
+    public function test_削除できること(): void
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        // Arrange
+        $tasks = Fabricate::create('Tasks');
+
+        // Act
+        $this->delete("/api/task/delete/{$tasks[0]->id}.json");
+
+        // Assert
+        $this->assertResponseOk();
     }
 }
