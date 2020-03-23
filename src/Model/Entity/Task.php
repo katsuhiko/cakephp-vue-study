@@ -26,7 +26,5 @@ class Task extends Entity
      */
     protected $_accessible = [
         'description' => true,
-        'created' => true,
-        'modified' => true,
     ];
 }
