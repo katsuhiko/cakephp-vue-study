@@ -34,7 +34,10 @@ class PagesControllerTest extends TestCase
      */
     public function test_Vueルートページを表示(): void
     {
+        // Act
         $this->get('/');
+
+        // Assert
         $this->assertResponseOk();
         $this->assertResponseContains('<div id="app">');
     }
@@ -44,7 +47,10 @@ class PagesControllerTest extends TestCase
      */
     public function test_どんなアクセスでもVueルートページを表示(): void
     {
+        // Act
         $this->get('/hoge/bar');
+
+        // Assert
         $this->assertResponseOk();
         $this->assertResponseContains('<div id="app">');
     }
