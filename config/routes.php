@@ -47,7 +47,7 @@ use Cake\Routing\RouteBuilder;
 $routes->setRouteClass(DashedRoute::class);
 
 // API
-$routes->scope('/api', ['prefix' => 'api'], function (RouteBuilder $builder) {
+$routes->scope('/api', ['prefix' => 'Api'], function (RouteBuilder $builder) {
     $builder->registerMiddleware('bodies', new BodyParserMiddleware());
     $builder->applyMiddleware('bodies');
 
