@@ -10,7 +10,7 @@
 schema-dump-default.lock
 
 # Swagger
-openapi.json
+openapi.yml
 
 # Laravel Mix specific files #
 ##############################
