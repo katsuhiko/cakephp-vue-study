@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Controller\Api;
@@ -17,7 +18,8 @@ class TaskController extends AppController
      * Search method
      * 
      * @OA\Get(
-     *   path="/api/task/search",
+     *   path="/api/task/search.json",
+     *   tags={"Task"},
      *   summary="タスクを検索する",
      *   @OA\Response(
      *     response=200,
@@ -25,23 +27,45 @@ class TaskController extends AppController
      *     @OA\JsonContent(
      *       type="object",
      *       @OA\Property(
-     *         property="message",
-     *         type="string",
-     *         description="レスポンスボディjsonパラメータの例"
-     *       )
-     *     )
+     *         property="tasks",
+     *         type="array",
+     *         description="タスク一覧",
+     *         @OA\Items(
+     *           @OA\Property(
+     *             property="id",
+     *             type="string",
+     *             description="タスクID",
+     *           ),
+     *           @OA\Property(
+     *             property="description",
+     *             type="string",
+     *             description="タスク内容",
+     *           ),
+     *         ),
+     *         example={
+     *           {
+     *             "id"="c366f5be-360b-45cc-8282-65c80e434f72",
+     *             "description"="朝の身だしなみチェック",
+     *           },
+     *           {
+     *             "id"="93d5ef90-be4d-4179-9311-e39bddc26427",
+     *             "description"="寝る前の作業",
+     *           },
+     *         },
+     *       ),
+     *     ),
      *   ),
      *   @OA\Response(
-     *     response=400,
-     *     description="Bad Request",
+     *     response="default",
+     *     description="Unexpected Error",
      *     @OA\JsonContent(
      *       type="object",
      *       @OA\Property(
      *         property="message",
      *         type="string",
-     *         description="レスポンスボディjsonパラメータの例"
-     *       )
-     *     )
+     *         description="エラーメッセージ",
+     *       ),
+     *     ),
      *   ),
      * )
      *
@@ -59,6 +83,56 @@ class TaskController extends AppController
     /**
      * Detail method
      *
+     * @OA\Get(
+     *   path="/api/task/detail/{id}.json",
+     *   tags={"Task"},
+     *   summary="タスクを参照する",
+     *   @OA\Parameter(
+     *     name="id",
+     *     in="path",
+     *     required=true,
+     *     description="タスクID",
+     *     @OA\Schema(type="string"),
+     *     example="c366f5be-360b-45cc-8282-65c80e434f72"
+     *   ),
+     *   @OA\Response(
+     *     response=200,
+     *     description="OK",
+     *     @OA\JsonContent(
+     *       type="object",
+     *       @OA\Property(
+     *         property="task",
+     *         type="object",
+     *         description="タスク",
+     *         @OA\Property(
+     *           property="id",
+     *           type="string",
+     *           description="ID",
+     *           example="c366f5be-360b-45cc-8282-65c80e434f72",
+     *         ),
+     *         @OA\Property(
+     *           property="description",
+     *           type="string",
+     *           description="タスク内容",
+     *           example="朝の身だしなみチェック",
+     *         ),
+     *       ),
+     *     ),
+     *   ),
+     *   @OA\Response(
+     *     response="default",
+     *     description="Unexpected Error",
+     *     @OA\JsonContent(
+     *       type="object",
+     *       @OA\Property(
+     *         property="message",
+     *         type="string",
+     *         description="エラーメッセージ",
+     *       ),
+     *     ),
+     *   ),
+     * )
+     *
      * @param string $id id.
      * @return void
      */
@@ -74,6 +148,55 @@ class TaskController extends AppController
     /**
      * Create method
      *
+     * @OA\Post(
+     *   path="/api/task/create.json",
+     *   tags={"Task"},
+     *   summary="タスクを登録する",
+     *   @OA\RequestBody(
+     *     required=true,
+     *     @OA\JsonContent(
+     *       type="object",
+     *       required={"description"},
+     *       @OA\Property(
+     *         property="description",
+     *         type="string",
+     *         description="タスク内容",
+     *         example="朝の身だしなみチェック",
+     *       ),
+     *     ),
+     *   ),
+     *   @OA\Response(
+     *     response=200,
+     *     description="OK",
+     *     @OA\JsonContent(
+     *       type="object",
+     *       @OA\Property(
+     *         property="task",
+     *         type="object",
+     *         description="タスク",
+     *         @OA\Property(
+     *           property="id",
+     *           type="string",
+     *           description="ID",
+     *           example="c366f5be-360b-45cc-8282-65c80e434f72",
+     *         ),
+     *       ),
+     *     ),
+     *   ),
+     *   @OA\Response(
+     *     response="default",
+     *     description="Unexpected Error",
+     *     @OA\JsonContent(
+     *       type="object",
+     *       @OA\Property(
+     *         property="message",
+     *         type="string",
+     *         description="エラーメッセージ",
+     *       ),
+     *     ),
+     *   ),
+     * )
+     * 
      * @return void
      * @throws \App\Exception\ApplicationException
      */
@@ -101,6 +224,63 @@ class TaskController extends AppController
     /**
      * Update method
      *
+     * @OA\Put(
+     *   path="/api/task/update/{id}.json",
+     *   tags={"Task"},
+     *   summary="タスクを更新する",
+     *   @OA\Parameter(
+     *     name="id",
+     *     in="path",
+     *     required=true,
+     *     description="タスクID",
+     *     @OA\Schema(type="string"),
+     *     example="c366f5be-360b-45cc-8282-65c80e434f72"
+     *   ),
+     *   @OA\RequestBody(
+     *     required=true,
+     *     @OA\JsonContent(
+     *       type="object",
+     *       required={"description"},
+     *       @OA\Property(
+     *         property="description",
+     *         type="string",
+     *         description="タスク内容",
+     *         example="朝の身だしなみチェック",
+     *       ),
+     *     ),
+     *   ),
+     *   @OA\Response(
+     *     response=200,
+     *     description="OK",
+     *     @OA\JsonContent(
+     *       type="object",
+     *       @OA\Property(
+     *         property="task",
+     *         type="object",
+     *         description="タスク",
+     *         @OA\Property(
+     *           property="id",
+     *           type="string",
+     *           description="ID",
+     *           example="c366f5be-360b-45cc-8282-65c80e434f72",
+     *         ),
+     *       ),
+     *     ),
+     *   ),
+     *   @OA\Response(
+     *     response="default",
+     *     description="Unexpected Error",
+     *     @OA\JsonContent(
+     *       type="object",
+     *       @OA\Property(
+     *         property="message",
+     *         type="string",
+     *         description="エラーメッセージ",
+     *       ),
+     *     ),
+     *   ),
+     * )
+     * 
      * @param string $id id
      * @return void
      * @throws \App\Exception\ApplicationException
@@ -130,6 +310,36 @@ class TaskController extends AppController
     /**
      * Delete method
      *
+     * @OA\Delete(
+     *   path="/api/task/delete/{id}.json",
+     *   tags={"Task"},
+     *   summary="タスクを削除する",
+     *   @OA\Parameter(
+     *     name="id",
+     *     in="path",
+     *     required=true,
+     *     description="タスクID",
+     *     @OA\Schema(type="string"),
+     *     example="c366f5be-360b-45cc-8282-65c80e434f72"
+     *   ),
+     *   @OA\Response(
+     *     response=204,
+     *     description="No Content",
+     *   ),
+     *   @OA\Response(
+     *     response="default",
+     *     description="Unexpected Error",
+     *     @OA\JsonContent(
+     *       type="object",
+     *       @OA\Property(
+     *         property="message",
+     *         type="string",
+     *         description="エラーメッセージ",
+     *       ),
+     *     ),
+     *   ),
+     * )
+     * 
      * @param string $id id
      * @return void
      * @throws \App\Exception\ApplicationException
