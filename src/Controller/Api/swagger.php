@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 /**
  * @OA\Server(
- *   description="OpenApi host",
+ *   description="localhost",
  *   url="http://localhost"
  * )
  */
