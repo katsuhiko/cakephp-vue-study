@@ -122,6 +122,17 @@ docker exec -it app php composer.phar require --dev sizuhiko/cake_fabricate:dev-
 ```
 
 
+## Swagger-PHP の導入
+
+https://qiita.com/horikeso/items/34ad3c91a6864e868d34
+
+```
+docker exec -it app php composer.phar require --dev zircote/swagger-php
+```
+
+composer.json へ scripts を追加
+.gitignore へ追加
+
 ## 利用している主要プロダクトのリリース情報
 
 - https://github.com/cakephp/cakephp/releases

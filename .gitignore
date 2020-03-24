@@ -9,6 +9,9 @@
 # Migration
 schema-dump-default.lock
 
+# Swagger
+openapi.json
+
 # Laravel Mix specific files #
 ##############################
 /node_modules

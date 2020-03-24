@@ -15,6 +15,35 @@ class TaskController extends AppController
 {
     /**
      * Search method
+     * 
+     * @OA\Get(
+     *   path="/api/task/search",
+     *   summary="タスクを検索する",
+     *   @OA\Response(
+     *     response=200,
+     *     description="OK",
+     *     @OA\JsonContent(
+     *       type="object",
+     *       @OA\Property(
+     *         property="message",
+     *         type="string",
+     *         description="レスポンスボディjsonパラメータの例"
+     *       )
+     *     )
+     *   ),
+     *   @OA\Response(
+     *     response=400,
+     *     description="Bad Request",
+     *     @OA\JsonContent(
+     *       type="object",
+     *       @OA\Property(
+     *         property="message",
+     *         type="string",
+     *         description="レスポンスボディjsonパラメータの例"
+     *       )
+     *     )
+     *   ),
+     * )
      *
      * @return void
      */
