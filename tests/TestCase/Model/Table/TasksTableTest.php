@@ -59,14 +59,16 @@ class TasksTableTest extends TestCase
     public function test_Fabricateを使わずにレコードを作成する(): void
     {
         // Arrange
-        $task = $this->Tasks->newEntity(['description' => 'unittest']);
-        $this->Tasks->save($task);
+        for ($i = 0; $i < 3; $i++) {
+            $task = $this->Tasks->newEntity(['description' => 'unittest']);
+            $this->Tasks->save($task);
+        }
 
         // Act
         $tasks = $this->Tasks->find()->all();
 
         // Assert
-        $this->assertEquals(1, count($tasks));
+        $this->assertEquals(3, count($tasks));
     }
 
     /**
