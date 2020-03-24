@@ -1,5 +1,4 @@
 <?php
-
 declare(strict_types=1);
 
 namespace App\Controller\Api;
@@ -16,7 +15,7 @@ class TaskController extends AppController
 {
     /**
      * Search method
-     * 
+     *
      * @OA\Get(
      *   path="/api/task/search.json",
      *   tags={"Task"},
@@ -196,7 +195,7 @@ class TaskController extends AppController
      *     ),
      *   ),
      * )
-     * 
+     *
      * @return void
      * @throws \App\Exception\ApplicationException
      */
@@ -280,7 +279,7 @@ class TaskController extends AppController
      *     ),
      *   ),
      * )
-     * 
+     *
      * @param string $id id
      * @return void
      * @throws \App\Exception\ApplicationException
@@ -339,7 +338,7 @@ class TaskController extends AppController
      *     ),
      *   ),
      * )
-     * 
+     *
      * @param string $id id
      * @return void
      * @throws \App\Exception\ApplicationException

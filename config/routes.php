@@ -21,6 +21,7 @@
  * @license       https://opensource.org/licenses/mit-license.php MIT License
  */
 
+use App\Middleware\CorsMiddleware;
 use Cake\Http\Middleware\BodyParserMiddleware;
 use Cake\Http\Middleware\CsrfProtectionMiddleware;
 use Cake\Routing\Route\DashedRoute;
@@ -50,8 +51,12 @@ $routes->setRouteClass(DashedRoute::class);
 $routes->scope('/api', ['prefix' => 'Api'], function (RouteBuilder $builder) {
     $builder->registerMiddleware('bodies', new BodyParserMiddleware());
     $builder->applyMiddleware('bodies');
+    $builder->registerMiddleware('cors', new CorsMiddleware());
+    $builder->applyMiddleware('cors');
 
     $builder->setExtensions(['json']);
+
+    $builder->connect('/*', ['controller' => 'Cors', 'action' => 'option'])->setMethods(['OPTIONS']);
 
     // Task
     $builder->connect('/task/search', ['controller' => 'Task', 'action' => 'search'])->setMethods(['GET']);
