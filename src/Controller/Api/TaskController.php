@@ -20,6 +20,14 @@ class TaskController extends AppController
      *   path="/api/task/search.json",
      *   tags={"Task"},
      *   summary="タスクを検索する",
+     *   @OA\Parameter(
+     *     name="description_like",
+     *     in="query",
+     *     required=false,
+     *     description="タスク内容検索条件",
+     *     @OA\Schema(type="string"),
+     *     example="作業"
+     *   ),
      *   @OA\Response(
      *     response=200,
      *     description="OK",
@@ -73,7 +81,13 @@ class TaskController extends AppController
     public function search(): void
     {
         $this->loadModel('Tasks');
-        $tasks = $this->Tasks->find()->all();
+        $descriptionLike = $this->request->getQuery('description_like');
+
+        $query = $this->Tasks->find();
+        if ($descriptionLike) {
+            $tasks = $query->where(['description LIKE' => "%{$descriptionLike}%"]);
+        }
+        $tasks = $query->all();
 
         $this->set('tasks', $tasks);
         $this->viewBuilder()->setOption('serialize', ['tasks']);

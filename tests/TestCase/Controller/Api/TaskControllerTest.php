@@ -59,6 +59,26 @@ class TaskControllerTest extends TestCase
     }
 
     /**
+     * Test search method
+     *
+     * @return void
+     */
+    public function test_タスク内容で絞って取得できること(): void
+    {
+        // Arrange
+        Fabricate::create('Tasks', 2, ['description' => '検索キーワードあり']);
+        Fabricate::create('Tasks', 1, ['description' => '何もなし']);
+
+        // Act
+        $this->get('/api/task/search.json?description_like=キーワード');
+
+        // Assert
+        $this->assertResponseOk();
+        $actual = json_decode((string)$this->_response->getBody(), true);
+        $this->assertEquals(2, count($actual['tasks']));
+    }
+
+    /**
      * Test detail method
      *
      * @return void
