@@ -19,4 +19,3 @@ docker exec -it app bin/cake migrations migrate
 docker exec -it app php composer.phar check
 docker exec -it app php composer.phar openapi
 ```
-
