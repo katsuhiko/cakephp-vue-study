@@ -19,12 +19,15 @@ class CorsMiddleware implements MiddlewareInterface
     {
         $response = $handler->handle($request);
 
-        if (!filter_var(env('SERVER', false))) {
-            $response = $response->withHeader('Access-Control-Allow-Origin', '*');
-            $response = $response->withHeader('Access-Control-Allow-Methods', '*');
-            $response = $response->withHeader('Access-Control-Allow-Headers', 'Content-Type');
-            $response = $response->withHeader('Access-Control-Max-Age', '172800');
+        // ローカル開発モードのときのみ CORS に対応する
+        if (filter_var(env('SERVER', false))) {
+            return $response;
         }
+
+        $response = $response->withHeader('Access-Control-Allow-Origin', '*');
+        $response = $response->withHeader('Access-Control-Allow-Methods', '*');
+        $response = $response->withHeader('Access-Control-Allow-Headers', 'Content-Type');
+        $response = $response->withHeader('Access-Control-Max-Age', '172800');
 
         return $response;
     }

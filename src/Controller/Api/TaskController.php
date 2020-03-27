@@ -81,7 +81,7 @@ class TaskController extends AppController
     public function search(): void
     {
         $this->loadModel('Tasks');
-        $descriptionLike = $this->request->getQuery('description_like');
+        $descriptionLike = strval($this->request->getQuery('description_like'));
 
         $query = $this->Tasks->find();
         if ($descriptionLike) {

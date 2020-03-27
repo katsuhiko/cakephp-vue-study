@@ -56,7 +56,8 @@ $routes->scope('/api', ['prefix' => 'Api'], function (RouteBuilder $builder) {
 
     $builder->setExtensions(['json']);
 
-    $builder->connect('/*', ['controller' => 'Cors', 'action' => 'option'])->setMethods(['OPTIONS']);
+    // Preflight request
+    $builder->connect('/*', ['controller' => 'Cors', 'action' => 'options'])->setMethods(['OPTIONS']);
 
     // Task
     $builder->connect('/task/search', ['controller' => 'Task', 'action' => 'search'])->setMethods(['GET']);
