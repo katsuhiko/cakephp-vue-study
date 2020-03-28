@@ -43,12 +43,15 @@ class ValidationErrorResponseForm extends Form
     protected function _execute(array $data): bool
     {
         $errors = Hash::flatten($data);
-        $this->errors = (new Collection($errors))->map(function ($error) {
+        $this->errors = (new Collection($errors))->map(function (string $value, string $key) {
             $errorDetail = new ErrorDetailForm();
-            $errorDetail->execute($error);
+            $errorDetail->execute([
+                'key' => $key,
+                'message' => $value,
+            ]);
 
             return $errorDetail;
-        })->toArray();
+        })->toList();
 
         return true;
     }
@@ -59,9 +62,9 @@ class ValidationErrorResponseForm extends Form
      */
     public function response(Controller $controller): void
     {
-        $errors = (new Collection($this->errors))->map(function ($errorDetail) {
+        $errors = (new Collection($this->errors))->map(function (ErrorDetailForm $errorDetail) {
             return $errorDetail->toArray();
-        })->toArray();
+        })->toList();
 
         $controller->setResponse($controller->getResponse()->withStatus(403));
         $controller->set('errors', $errors);
@@ -73,7 +76,7 @@ class ValidationErrorResponseForm extends Form
      * @param array $errors errors
      * @return void
      */
-    public static function error(Controller $controller, $errors): void
+    public static function error(Controller $controller, array $errors): void
     {
         $errorForm = new ValidationErrorResponseForm();
         $errorForm->execute($errors);

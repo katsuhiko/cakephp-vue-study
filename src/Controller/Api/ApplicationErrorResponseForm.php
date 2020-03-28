@@ -3,8 +3,10 @@ declare(strict_types=1);
 
 namespace App\Controller\Api;
 
+use App\Exception\ApplicationException;
 use Cake\Collection\Collection;
 use Cake\Controller\Controller;
+use Cake\Error\ErrorLogger;
 use Cake\Form\Form;
 use Cake\Utility\Hash;
 
@@ -43,12 +45,15 @@ class ApplicationErrorResponseForm extends Form
     protected function _execute(array $data): bool
     {
         $errors = Hash::flatten($data);
-        $this->errors = (new Collection($errors))->map(function ($error) {
+        $this->errors = (new Collection($errors))->map(function (string $value, string $key) {
             $errorDetail = new ErrorDetailForm();
-            $errorDetail->execute($error);
+            $errorDetail->execute([
+                'key' => $key,
+                'message' => $value,
+            ]);
 
             return $errorDetail;
-        })->toArray();
+        })->toList();
 
         return true;
     }
@@ -59,9 +64,12 @@ class ApplicationErrorResponseForm extends Form
      */
     public function response(Controller $controller): void
     {
-        $errors = (new Collection($this->errors))->map(function ($errorDetail) {
+        $errors = (new Collection($this->errors))->map(function (ErrorDetailForm $errorDetail) {
             return $errorDetail->toArray();
-        })->toArray();
+        })->toList();
+
+        // エラー原因がわかるようにログに出力する。
+        (new ErrorLogger(['trace' => true]))->log(new ApplicationException($errors), $controller->getRequest());
 
         $controller->setResponse($controller->getResponse()->withStatus(500));
         $controller->set('errors', $errors);
@@ -73,7 +81,7 @@ class ApplicationErrorResponseForm extends Form
      * @param array $errors errors
      * @return void
      */
-    public static function error(Controller $controller, $errors): void
+    public static function error(Controller $controller, array $errors): void
     {
         $errorForm = new ApplicationErrorResponseForm();
         $errorForm->execute($errors);
