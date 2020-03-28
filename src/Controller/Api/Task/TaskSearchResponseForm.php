@@ -59,7 +59,7 @@ class TaskSearchResponseForm extends Form
             $taskDetail->execute($task);
 
             return $taskDetail;
-        })->toArray();
+        })->toList();
 
         return true;
     }
@@ -72,7 +72,7 @@ class TaskSearchResponseForm extends Form
     {
         $data = (new Collection($this->data))->map(function ($taskDetail) {
             return $taskDetail->toArray();
-        })->toArray();
+        })->toList();
 
         $controller->set('data', $data);
         $controller->viewBuilder()->setOption('serialize', ['data']);
