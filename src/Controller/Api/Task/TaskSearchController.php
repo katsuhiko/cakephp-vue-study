@@ -58,7 +58,6 @@ class TaskSearchController extends AppController
             throw new ResponseValidationException($responseForm->getErrors());
         }
 
-        $this->set('data', $responseForm->data());
-        $this->viewBuilder()->setOption('serialize', ['data']);
+        $responseForm->response($this);
     }
 }

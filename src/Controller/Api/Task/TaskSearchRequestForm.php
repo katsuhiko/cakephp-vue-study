@@ -8,7 +8,7 @@ use Cake\Utility\Hash;
 use Cake\Validation\Validator;
 
 /**
- * TaskSearch RequestForm
+ * TaskSearchRequestForm
  */
 class TaskSearchRequestForm extends Form
 {
@@ -23,9 +23,9 @@ class TaskSearchRequestForm extends Form
      *   example="作業"
      * )
      *
-     * @var string $descriptionLike
+     * @var string|null $descriptionLike
      */
-    private $descriptionLike;
+    private $descriptionLike = null;
 
     /**
      * @param \Cake\Validation\Validator $validator Validator
@@ -48,7 +48,7 @@ class TaskSearchRequestForm extends Form
     protected function _execute(array $data): bool
     {
         $data = Hash::merge([
-            'description_like' => '',
+            'description_like' => null,
         ], $data);
 
         $this->descriptionLike = strval($data['description_like']);
@@ -57,9 +57,9 @@ class TaskSearchRequestForm extends Form
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function descriptionLike(): string
+    public function descriptionLike(): ?string
     {
         return $this->descriptionLike;
     }

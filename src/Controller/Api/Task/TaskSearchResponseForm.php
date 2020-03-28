@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Controller\Api\Task;
 
 use Cake\Collection\Collection;
+use Cake\Controller\Controller;
 use Cake\Form\Form;
 use Cake\Validation\Validator;
 
@@ -48,9 +49,9 @@ class TaskSearchResponseForm extends Form
      *   ),
      * )
      *
-     * @var array
+     * @var array<\App\Controller\Api\Task\TaskDetailForm>
      */
-    public $data = [];
+    private $data = [];
 
     /**
      * @param \Cake\Validation\Validator $validator Validator
@@ -60,16 +61,7 @@ class TaskSearchResponseForm extends Form
     {
         $taskValidator = new Validator();
 
-        $taskValidator
-            ->uuid('id')
-            ->requirePresence('id')
-            ->notEmptyString('id');
-
-        $taskValidator
-            ->scalar('description')
-            ->requirePresence('description')
-            ->allowEmptyString('description');
-
+        $taskValidator = (new TaskDetailForm())->validationDefault($taskValidator);
         $validator->addNestedMany('tasks', $taskValidator);
 
         return $validator;
@@ -82,20 +74,22 @@ class TaskSearchResponseForm extends Form
     protected function _execute(array $data): bool
     {
         $this->data = (new Collection($data['tasks']))->map(function ($task) {
-            return [
-                'id' => $task['id'],
-                'description' => $task['description'],
-            ];
+            $taskDetail = new TaskDetailForm();
+            $taskDetail->execute($task);
+
+            return $taskDetail;
         })->toArray();
 
         return true;
     }
 
     /**
-     * @return array
+     * @param \Cake\Controller\Controller $controller controller
+     * @return void
      */
-    public function data(): array
+    public function response(Controller $controller): void
     {
-        return $this->data;
+        $controller->set('data', $this->data);
+        $controller->viewBuilder()->setOption('serialize', ['data']);
     }
 }
