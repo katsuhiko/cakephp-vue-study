@@ -48,7 +48,7 @@ class TaskSearchController extends AppController
 
         $this->loadModel('Tasks');
         $query = $this->Tasks->find();
-        if ($requestForm->descriptionLike()) {
+        if (!is_null($requestForm->descriptionLike())) {
             $query->where(['description LIKE' => "%{$requestForm->descriptionLike()}%"]);
         }
         $tasks = $query->enableHydration(false)->toArray();

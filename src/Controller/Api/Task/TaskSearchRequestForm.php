@@ -51,7 +51,7 @@ class TaskSearchRequestForm extends Form
             'description_like' => null,
         ], $data);
 
-        $this->descriptionLike = strval($data['description_like']);
+        $this->descriptionLike = $data['description_like'];
 
         return true;
     }
