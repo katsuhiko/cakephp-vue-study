@@ -54,7 +54,7 @@ class TaskDetailForm extends Form
         $validator
             ->scalar('description')
             ->requirePresence('description')
-            ->allowEmptyString('description');
+            ->notEmptyString('description');
 
         return $validator;
     }

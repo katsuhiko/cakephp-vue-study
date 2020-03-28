@@ -9,7 +9,7 @@ use Cake\Form\Form;
 use Cake\Validation\Validator;
 
 /**
- * TaskSearch ResponseForm
+ * TaskSearchResponseForm
  */
 class TaskSearchResponseForm extends Form
 {
@@ -23,28 +23,7 @@ class TaskSearchResponseForm extends Form
      *       property="tasks",
      *       type="array",
      *       description="タスク一覧",
-     *       @OA\Items(
-     *         @OA\Property(
-     *           property="id",
-     *           type="string",
-     *           description="タスクID",
-     *         ),
-     *         @OA\Property(
-     *           property="description",
-     *           type="string",
-     *           description="タスク内容",
-     *         ),
-     *       ),
-     *       example={
-     *         {
-     *           "id"="c366f5be-360b-45cc-8282-65c80e434f72",
-     *           "description"="朝の身だしなみチェック",
-     *         },
-     *         {
-     *           "id"="93d5ef90-be4d-4179-9311-e39bddc26427",
-     *           "description"="寝る前の作業",
-     *         },
-     *       },
+     *       @OA\Items(ref="#/components/schemas/TaskDetailForm"),
      *     ),
      *   ),
      * )
