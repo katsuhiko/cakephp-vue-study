@@ -48,7 +48,7 @@ use Cake\Routing\RouteBuilder;
 $routes->setRouteClass(DashedRoute::class);
 
 // API
-$routes->scope('/api', ['prefix' => 'Api'], function (RouteBuilder $builder) {
+$routes->scope('/api', function (RouteBuilder $builder) {
     $builder->registerMiddleware('bodies', new BodyParserMiddleware());
     $builder->applyMiddleware('bodies');
     $builder->registerMiddleware('cors', new CorsMiddleware());
@@ -57,14 +57,17 @@ $routes->scope('/api', ['prefix' => 'Api'], function (RouteBuilder $builder) {
     $builder->setExtensions(['json']);
 
     // Preflight request
-    $builder->connect('/*', ['controller' => 'Cors', 'action' => 'options'])->setMethods(['OPTIONS']);
+    $builder->connect('/*', ['prefix' => 'Api', 'controller' => 'Cors', 'action' => 'options'])->setMethods(['OPTIONS']);
 
     // Task
-    $builder->connect('/task/search', ['controller' => 'Task', 'action' => 'search'])->setMethods(['GET']);
-    $builder->connect('/task/detail/:id', ['controller' => 'Task', 'action' => 'detail'])->setPass(['id'])->setMethods(['GET']);
-    $builder->connect('/task/create', ['controller' => 'Task', 'action' => 'create'])->setMethods(['POST']);
-    $builder->connect('/task/update/:id', ['controller' => 'Task', 'action' => 'update'])->setPass(['id'])->setMethods(['PUT']);
-    $builder->connect('/task/delete/:id', ['controller' => 'Task', 'action' => 'delete'])->setPass(['id'])->setMethods(['DELETE']);
+    $builder->connect('/task/search', ['prefix' => 'Api', 'controller' => 'Task', 'action' => 'search'])->setMethods(['GET']);
+    $builder->connect('/task/detail/:id', ['prefix' => 'Api', 'controller' => 'Task', 'action' => 'detail'])->setPass(['id'])->setMethods(['GET']);
+    $builder->connect('/task/create', ['prefix' => 'Api', 'controller' => 'Task', 'action' => 'create'])->setMethods(['POST']);
+    $builder->connect('/task/update/:id', ['prefix' => 'Api', 'controller' => 'Task', 'action' => 'update'])->setPass(['id'])->setMethods(['PUT']);
+    $builder->connect('/task/delete/:id', ['prefix' => 'Api', 'controller' => 'Task', 'action' => 'delete'])->setPass(['id'])->setMethods(['DELETE']);
+
+    // CATask
+    $builder->connect('/ca-task/search', ['prefix' => 'Api/Task', 'controller' => 'TaskSearch', 'action' => 'index'])->setMethods(['GET']);
 });
 
 $routes->scope('/', function (RouteBuilder $builder) {

@@ -14,8 +14,6 @@ use App\Exception\ApplicationException;
 class TaskController extends AppController
 {
     /**
-     * Search method
-     *
      * @OA\Get(
      *   path="/api/task/search.json",
      *   tags={"Task"},
@@ -85,7 +83,7 @@ class TaskController extends AppController
 
         $query = $this->Tasks->find();
         if ($descriptionLike) {
-            $tasks = $query->where(['description LIKE' => "%{$descriptionLike}%"]);
+            $query = $query->where(['description LIKE' => "%{$descriptionLike}%"]);
         }
         $tasks = $query->all();
 
@@ -146,7 +144,7 @@ class TaskController extends AppController
      *   ),
      * )
      *
-     * @param string $id id.
+     * @param string $id id
      * @return void
      */
     public function detail(string $id): void
