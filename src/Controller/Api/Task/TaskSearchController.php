@@ -17,7 +17,7 @@ class TaskSearchController extends AppController
     /**
      * @OA\Get(
      *   path="/api/ca-task/search.json",
-     *   tags={"Task"},
+     *   tags={"CaTask"},
      *   summary="タスクを検索する",
      *   @OA\Parameter(ref="#/components/parameters/TaskSearchRequestForm_descriptionLike"),
      *   @OA\Response(
