@@ -10,8 +10,8 @@ use Cake\Validation\Validator;
  * TaskDetailForm
  *
  * @OA\Schema(
- *     description="タスク詳細情報",
- *     type="object",
+ *   description="タスク詳細情報",
+ *   type="object",
  * )
  */
 class TaskDetailForm extends Form
@@ -21,7 +21,7 @@ class TaskDetailForm extends Form
      *   property="id",
      *   type="string",
      *   description="タスクID",
-     *   example="c366f5be-360b-45cc-8282-65c80e434f72"
+     *   example="c366f5be-360b-45cc-8282-65c80e434f72",
      * )
      *
      * @var string
@@ -33,7 +33,7 @@ class TaskDetailForm extends Form
      *   property="description",
      *   type="string",
      *   description="タスク内容",
-     *   example="朝の身だしなみチェック"
+     *   example="朝の身だしなみチェック",
      * )
      *
      * @var string

@@ -10,22 +10,34 @@ use Cake\Validation\Validator;
 
 /**
  * TaskSearchResponseForm
+ *
+ * @OA\Response(
+ *   response="TaskSearchResponseForm",
+ *   description="OK",
+ *   @OA\JsonContent(
+ *     type="object",
+ *     @OA\Property(
+ *       property="tasks",
+ *       type="array",
+ *       description="タスク一覧",
+ *       @OA\Items(ref="#/components/schemas/TaskDetailForm"),
+ *     ),
+ *   ),
+ * )
+ *
+ * @OA\Schema(
+ *   description="タスク検索レスポンス情報",
+ *   type="object",
+ * )
  */
 class TaskSearchResponseForm extends Form
 {
     /**
-     * @OA\Response(
-     *   response="TaskSearchResponseForm",
-     *   description="OK",
-     *   @OA\JsonContent(
-     *     type="object",
-     *     @OA\Property(
-     *       property="tasks",
-     *       type="array",
-     *       description="タスク一覧",
-     *       @OA\Items(ref="#/components/schemas/TaskDetailForm"),
-     *     ),
-     *   ),
+     * @OA\Property(
+     *   property="tasks",
+     *   type="array",
+     *   description="tasks",
+     *   @OA\Items(ref="#/components/schemas/TaskDetailForm"),
      * )
      *
      * @var array<\App\Controller\Api\Task\TaskDetailForm>
@@ -38,9 +50,7 @@ class TaskSearchResponseForm extends Form
      */
     public function validationDefault(Validator $validator): Validator
     {
-        $taskValidator = new Validator();
-
-        $taskValidator = (new TaskDetailForm())->validationDefault($taskValidator);
+        $taskValidator = (new TaskDetailForm())->validationDefault(new Validator());
         $validator->addNestedMany('tasks', $taskValidator);
 
         return $validator;
