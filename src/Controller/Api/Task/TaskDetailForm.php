@@ -72,18 +72,13 @@ class TaskDetailForm extends Form
     }
 
     /**
-     * @return string
+     * @return array{id:string, description:string}
      */
-    public function id(): string
+    public function toArray(): array
     {
-        return $this->id;
-    }
-
-    /**
-     * @return string
-     */
-    public function description(): string
-    {
-        return $this->description;
+        return [
+            'id' => $this->id,
+            'description' => $this->description,
+        ];
     }
 }

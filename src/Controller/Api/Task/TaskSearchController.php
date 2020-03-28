@@ -3,9 +3,9 @@ declare(strict_types=1);
 
 namespace App\Controller\Api\Task;
 
+use App\Controller\Api\ApplicationErrorResponseForm;
+use App\Controller\Api\ValidationErrorResponseForm;
 use App\Controller\AppController;
-use App\Exception\RequestValidationException;
-use App\Exception\ResponseValidationException;
 
 /**
  * TaskSearch Controller
@@ -22,18 +22,15 @@ class TaskSearchController extends AppController
      *   @OA\Parameter(ref="#/components/parameters/TaskSearchRequestForm_descriptionLike"),
      *   @OA\Response(
      *     response="200",
-     *     ref="#/components/responses/TaskSearchResponseForm"),
+     *     ref="#/components/responses/TaskSearchResponseForm",
+     *   ),
      *   @OA\Response(
-     *     response="default",
-     *     description="Unexpected Error",
-     *     @OA\JsonContent(
-     *       type="object",
-     *       @OA\Property(
-     *         property="message",
-     *         type="string",
-     *         description="エラーメッセージ",
-     *       ),
-     *     ),
+     *     response="403",
+     *     ref="#/components/responses/ValidationErrorResponseForm",
+     *   ),
+     *   @OA\Response(
+     *     response="500",
+     *     ref="#/components/responses/ApplicationErrorResponseForm",
      *   ),
      * )
      *
@@ -43,7 +40,9 @@ class TaskSearchController extends AppController
     {
         $requestForm = new TaskSearchRequestForm();
         if (!$requestForm->execute($this->request->getQuery())) {
-            throw new RequestValidationException($requestForm->getErrors());
+            ValidationErrorResponseForm::error($this, $requestForm->getErrors());
+
+            return;
         }
 
         $this->loadModel('Tasks');
@@ -55,7 +54,9 @@ class TaskSearchController extends AppController
 
         $responseForm = new TaskSearchResponseForm();
         if (!$responseForm->execute(['tasks' => $tasks])) {
-            throw new ResponseValidationException($responseForm->getErrors());
+            ApplicationErrorResponseForm::error($this, $responseForm->getErrors());
+
+            return;
         }
 
         $responseForm->response($this);

@@ -14,15 +14,7 @@ use Cake\Validation\Validator;
  * @OA\Response(
  *   response="TaskSearchResponseForm",
  *   description="OK",
- *   @OA\JsonContent(
- *     type="object",
- *     @OA\Property(
- *       property="tasks",
- *       type="array",
- *       description="タスク一覧",
- *       @OA\Items(ref="#/components/schemas/TaskDetailForm"),
- *     ),
- *   ),
+ *   @OA\JsonContent(ref="#/components/schemas/TaskSearchResponseForm"),
  * )
  *
  * @OA\Schema(
@@ -34,13 +26,13 @@ class TaskSearchResponseForm extends Form
 {
     /**
      * @OA\Property(
-     *   property="tasks",
+     *   property="data",
      *   type="array",
-     *   description="tasks",
+     *   description="タスク一覧情報",
      *   @OA\Items(ref="#/components/schemas/TaskDetailForm"),
      * )
      *
-     * @var array<\App\Controller\Api\Task\TaskDetailForm>
+     * @var \App\Controller\Api\Task\TaskDetailForm[]
      */
     private $data = [];
 
@@ -78,7 +70,11 @@ class TaskSearchResponseForm extends Form
      */
     public function response(Controller $controller): void
     {
-        $controller->set('data', $this->data);
+        $data = (new Collection($this->data))->map(function ($taskDetail) {
+            return $taskDetail->toArray();
+        })->toArray();
+
+        $controller->set('data', $data);
         $controller->viewBuilder()->setOption('serialize', ['data']);
     }
 }

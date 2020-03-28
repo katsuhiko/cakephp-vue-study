@@ -11,5 +11,6 @@ parameters:
     - '#Method App\\Controller\\[a-zA-Z0-9\\_]+Form::validationDefault\(\) has parameter \$validator with no value type specified in iterable type Cake\\Validation\\Validator.#'
     - '#Method App\\Controller\\[a-zA-Z0-9\\_]+Form::validationDefault\(\) return type has no value type specified in iterable type Cake\\Validation\\Validator.#'
     - '#Method App\\Controller\\[a-zA-Z0-9\\_]+Form::_execute\(\) has parameter \$data with no value type specified in iterable type array.#'
+    - '#Method App\\Controller\\[a-zA-Z0-9\\_]+Form::error\(\) has parameter \$errors with no value type specified in iterable type array.#'
     - '#Parameter \#1 \$data of method Cake\\Form\\Form::execute\(\) expects array, array\|string\|null given.#'
   reportUnmatchedIgnoredErrors: false
