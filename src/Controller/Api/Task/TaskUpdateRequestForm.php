@@ -10,7 +10,7 @@ use Cake\Validation\Validator;
  * TaskUpdateRequestForm
  *
  * @OA\Schema(
- *   description="タスク更新ボディー情報",
+ *   description="タスク更新リクエスト情報",
  *   type="object",
  *   required={"description"},
  * )
