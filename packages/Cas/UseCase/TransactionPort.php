@@ -3,9 +3,6 @@ declare(strict_types=1);
 
 namespace Cas\UseCase;
 
-/**
- * TransactionPort
- */
 interface TransactionPort
 {
     /**
