@@ -70,6 +70,7 @@ $routes->scope('/api', function (RouteBuilder $builder) {
     $builder->connect('/ca-task/search', ['prefix' => 'Api/Task', 'controller' => 'TaskSearch', 'action' => 'index'])->setMethods(['GET']);
     $builder->connect('/ca-task/create', ['prefix' => 'Api/Task', 'controller' => 'TaskCreate', 'action' => 'index'])->setMethods(['POST']);
     $builder->connect('/ca-task/update/:id', ['prefix' => 'Api/Task', 'controller' => 'TaskUpdate', 'action' => 'index'])->setPass(['id'])->setMethods(['PUT']);
+    $builder->connect('/ca-task/delete/:id', ['prefix' => 'Api/Task', 'controller' => 'TaskDelete', 'action' => 'index'])->setPass(['id'])->setMethods(['DELETE']);
 });
 
 $routes->scope('/', function (RouteBuilder $builder) {
