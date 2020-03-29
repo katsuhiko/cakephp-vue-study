@@ -68,6 +68,7 @@ $routes->scope('/api', function (RouteBuilder $builder) {
 
     // CATask
     $builder->connect('/ca-task/search', ['prefix' => 'Api/Task', 'controller' => 'TaskSearch', 'action' => 'index'])->setMethods(['GET']);
+    $builder->connect('/ca-task/update/:id', ['prefix' => 'Api/Task', 'controller' => 'TaskUpdate', 'action' => 'index'])->setPass(['id'])->setMethods(['PUT']);
 });
 
 $routes->scope('/', function (RouteBuilder $builder) {
