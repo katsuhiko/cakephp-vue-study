@@ -6,7 +6,6 @@ namespace App\Controller\Api\Task;
 use Cake\Collection\Collection;
 use Cake\Controller\Controller;
 use Cake\Form\Form;
-use Cake\Validation\Validator;
 
 /**
  * TaskSearchResponseForm
@@ -36,17 +35,16 @@ class TaskSearchResponseForm extends Form
      */
     private $data = [];
 
-    /**
-     * @param \Cake\Validation\Validator $validator Validator
-     * @return \Cake\Validation\Validator
-     */
-    public function validationDefault(Validator $validator): Validator
-    {
-        $taskValidator = (new TaskDetailForm())->validationDefault(new Validator());
-        $validator->addNestedMany('tasks', $taskValidator);
-
-        return $validator;
-    }
+    // /**
+    //  * @param \Cake\Validation\Validator $validator Validator
+    //  * @return \Cake\Validation\Validator
+    //  */
+    // public function validationDefault(Validator $validator): Validator
+    // {
+    //     $taskValidator = (new TaskDetailForm())->validationDefault(new Validator());
+    //     $validator->addNestedMany('tasks', $taskValidator);
+    //     return $validator;
+    // }
 
     /**
      * @param array $data data

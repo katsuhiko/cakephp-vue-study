@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace App\Controller\Api\Task;
 
-use App\Controller\Api\ApplicationErrorResponseForm;
 use App\Controller\Api\ValidationErrorResponseForm;
 use App\Controller\AppController;
 
@@ -53,12 +52,11 @@ class TaskSearchController extends AppController
         $tasks = $query->enableHydration(false)->toArray();
 
         $responseForm = new TaskSearchResponseForm();
-        if (!$responseForm->execute(['tasks' => $tasks])) {
-            ApplicationErrorResponseForm::error($this, $responseForm->getErrors());
-
-            return;
-        }
-
+        // if (!$responseForm->execute(['tasks' => $tasks])) {
+        //     ApplicationErrorResponseForm::error($this, $responseForm->getErrors());
+        //     return;
+        // }
+        $responseForm->execute(['tasks' => $tasks]);
         $responseForm->response($this);
     }
 }
