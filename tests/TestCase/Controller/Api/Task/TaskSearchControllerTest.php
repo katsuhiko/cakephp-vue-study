@@ -73,4 +73,21 @@ class TaskSearchControllerTest extends TestCase
         $actual = json_decode(strval($this->_response->getBody()), true);
         $this->assertEquals(2, count($actual['data']));
     }
+
+    /**
+     * @return void
+     */
+    public function test_タスク内容が空の場合入力チェックエラーとなること(): void
+    {
+        // Arrange
+        Fabricate::create('Tasks', 3);
+
+        // Act
+        $this->get('/api/ca-task/search.json?description_like=');
+
+        // Assert
+        $this->assertResponseCode(403);
+        $actual = json_decode(strval($this->_response->getBody()), true);
+        $this->assertEquals(1, count($actual['errors']));
+    }
 }

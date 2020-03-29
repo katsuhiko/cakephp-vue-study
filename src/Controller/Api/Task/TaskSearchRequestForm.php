@@ -36,7 +36,7 @@ class TaskSearchRequestForm extends Form
         $validator
             ->scalar('description_like')
             ->requirePresence('description_like', false)
-            ->allowEmptyString('description_like');
+            ->notEmptyString('description_like');
 
         return $validator;
     }
