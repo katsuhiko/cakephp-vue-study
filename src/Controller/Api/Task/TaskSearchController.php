@@ -31,7 +31,7 @@ class TaskSearchController extends AppController
      *
      * @return void
      */
-    public function index(): void
+    public function execute(): void
     {
         $requestForm = new TaskSearchRequestForm();
         if (!$requestForm->execute($this->request->getQuery())) {

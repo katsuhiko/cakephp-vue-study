@@ -37,7 +37,7 @@ class TaskDeleteController extends AppController
      * @param string $id id
      * @return void
      */
-    public function index($id): void
+    public function execute($id): void
     {
         $requestForm = new TaskDeleteRequestForm();
         if (!$requestForm->execute(['id' => $id])) {

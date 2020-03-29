@@ -39,7 +39,7 @@ class TaskCreateController extends AppController
      *
      * @return void
      */
-    public function index(): void
+    public function execute(): void
     {
         $requestForm = new TaskCreateRequestForm();
         if (!$requestForm->execute($this->request->getData())) {

@@ -42,7 +42,7 @@ class TaskUpdateController extends AppController
      * @param string $id id
      * @return void
      */
-    public function index($id): void
+    public function execute($id): void
     {
         $requestForm = new TaskUpdateRequestForm();
         if (!$requestForm->execute(Hash::merge($this->request->getData(), ['id' => $id]))) {

@@ -33,7 +33,7 @@ class TaskDetailController extends AppController
      * @param string $id id
      * @return void
      */
-    public function index($id): void
+    public function execute($id): void
     {
         $requestForm = new TaskDetailRequestForm();
         if (!$requestForm->execute(Hash::merge($this->request->getData(), ['id' => $id]))) {
