@@ -23,9 +23,9 @@ class TaskSearchRequestForm extends Form
      *   example="作業"
      * )
      *
-     * @var string|null $descriptionLike
+     * @var string|null
      */
-    private $descriptionLike = null;
+    private $descriptionLike;
 
     /**
      * @param \Cake\Validation\Validator $validator Validator

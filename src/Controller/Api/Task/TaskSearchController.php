@@ -7,7 +7,7 @@ use App\Controller\Api\ValidationErrorResponseForm;
 use App\Controller\AppController;
 
 /**
- * TaskSearch Controller
+ * TaskSearchController
  *
  * @property \App\Model\Table\TasksTable $Tasks
  */
@@ -26,10 +26,6 @@ class TaskSearchController extends AppController
      *   @OA\Response(
      *     response="403",
      *     ref="#/components/responses/ValidationErrorResponseForm",
-     *   ),
-     *   @OA\Response(
-     *     response="500",
-     *     ref="#/components/responses/ApplicationErrorResponseForm",
      *   ),
      * )
      *

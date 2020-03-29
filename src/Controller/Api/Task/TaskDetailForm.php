@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace App\Controller\Api\Task;
 
 use Cake\Form\Form;
-use Cake\Validation\Validator;
 
 /**
  * TaskDetailForm
@@ -26,7 +25,7 @@ class TaskDetailForm extends Form
      *
      * @var string
      */
-    private $id = '';
+    private $id;
 
     /**
      * @OA\Property(
@@ -38,26 +37,24 @@ class TaskDetailForm extends Form
      *
      * @var string
      */
-    private $description = '';
+    private $description;
 
-    /**
-     * @param \Cake\Validation\Validator $validator Validator
-     * @return \Cake\Validation\Validator
-     */
-    public function validationDefault(Validator $validator): Validator
-    {
-        $validator
-            ->uuid('id')
-            ->requirePresence('id')
-            ->notEmptyString('id');
-
-        $validator
-            ->scalar('description')
-            ->requirePresence('description')
-            ->notEmptyString('description');
-
-        return $validator;
-    }
+    // /**
+    //  * @param \Cake\Validation\Validator $validator Validator
+    //  * @return \Cake\Validation\Validator
+    //  */
+    // public function validationDefault(Validator $validator): Validator
+    // {
+    //     $validator
+    //         ->uuid('id')
+    //         ->requirePresence('id')
+    //         ->notEmptyString('id');
+    //     $validator
+    //         ->scalar('description')
+    //         ->requirePresence('description')
+    //         ->notEmptyString('description');
+    //     return $validator;
+    // }
 
     /**
      * @param array $data data

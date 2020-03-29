@@ -33,7 +33,7 @@ class TaskSearchResponseForm extends Form
      *
      * @var \App\Controller\Api\Task\TaskDetailForm[]
      */
-    private $data = [];
+    private $data;
 
     // /**
     //  * @param \Cake\Validation\Validator $validator Validator
