@@ -4,6 +4,8 @@ declare(strict_types=1);
 namespace App\Model\Entity;
 
 use Cake\ORM\Entity;
+use Cas\Domain\Model\Task as TaskModel;
+use Cas\Domain\Model\TaskId;
 
 /**
  * Task Entity
@@ -27,4 +29,15 @@ class Task extends Entity
     protected $_accessible = [
         'description' => true,
     ];
+
+    /**
+     * @return \Cas\Domain\Model\Task
+     */
+    public function toModel(): TaskModel
+    {
+        return new TaskModel(
+            TaskId::of($this->id),
+            $this->description,
+        );
+    }
 }

@@ -22,10 +22,10 @@ class TaskSearch
     }
 
     /**
-     * @param string $descriptionLike descriptionLike
+     * @param string|null $descriptionLike descriptionLike
      * @return \Cas\Domain\Model\Task[]
      */
-    public function execute(string $descriptionLike)
+    public function execute(?string $descriptionLike)
     {
         return $this->query->findTasks($descriptionLike);
     }

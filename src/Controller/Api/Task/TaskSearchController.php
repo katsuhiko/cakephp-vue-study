@@ -5,6 +5,8 @@ namespace App\Controller\Api\Task;
 
 use App\Controller\Api\ValidationErrorResponseForm;
 use App\Controller\AppController;
+use Cake\Collection\Collection;
+use Cas\UseCase\Task\TaskSearch;
 
 /**
  * TaskSearchController
@@ -40,12 +42,13 @@ class TaskSearchController extends AppController
             return;
         }
 
-        $this->loadModel('Tasks');
-        $query = $this->Tasks->find();
-        if (!is_null($requestForm->descriptionLike())) {
-            $query->where(['description LIKE' => "%{$requestForm->descriptionLike()}%"]);
-        }
-        $tasks = $query->enableHydration(false)->toArray();
+        $adapter = new TaskSearchAdapter();
+        $useCase = new TaskSearch($adapter);
+        $taskModels = $useCase->execute($requestForm->descriptionLike());
+
+        $tasks = (new Collection($taskModels))->map(function ($taskModel) {
+            return $taskModel->toArray();
+        })->toList();
 
         $responseForm = new TaskSearchResponseForm();
         // if (!$responseForm->execute(['tasks' => $tasks])) {

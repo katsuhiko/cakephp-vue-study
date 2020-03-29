@@ -20,7 +20,7 @@ class TaskSearchTest extends TestCase
         $useCase = new TaskSearch(
             new class implements TaskSearchQueryPort
             {
-                public function findTasks(string $descriptionLike): array
+                public function findTasks(?string $descriptionLike): array
                 {
                     return [
                         new Task(

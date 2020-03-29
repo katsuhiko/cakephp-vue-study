@@ -6,8 +6,8 @@ namespace Cas\UseCase\Task;
 interface TaskSearchQueryPort
 {
     /**
-     * @param string $descriptionLike descriptionLike
+     * @param string|null $descriptionLike descriptionLike
      * @return \Cas\Domain\Model\Task[]
      */
-    public function findTasks(string $descriptionLike): array;
+    public function findTasks(?string $descriptionLike): array;
 }
