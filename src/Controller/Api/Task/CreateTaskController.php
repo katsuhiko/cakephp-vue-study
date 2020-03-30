@@ -32,10 +32,6 @@ class CreateTaskController extends AppController
      *     response="403",
      *     ref="#/components/responses/ValidationErrorResponseForm",
      *   ),
-     *   @OA\Response(
-     *     response="500",
-     *     ref="#/components/responses/ApplicationErrorResponseForm",
-     *   ),
      * )
      *
      * @return void
