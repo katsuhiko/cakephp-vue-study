@@ -84,12 +84,10 @@ class UpdateTaskRequestForm extends Form
     }
 
     /**
-     * @return array{description:string}
+     * @return string
      */
-    public function data(): array
+    public function description(): string
     {
-        return [
-            'description' => $this->description,
-        ];
+        return $this->description;
     }
 }

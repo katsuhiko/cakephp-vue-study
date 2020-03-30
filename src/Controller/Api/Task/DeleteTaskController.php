@@ -37,7 +37,7 @@ class DeleteTaskController extends AppController
      * @param string $id id
      * @return void
      */
-    public function execute($id): void
+    public function execute(string $id): void
     {
         $requestForm = new DeleteTaskRequestForm();
         if (!$requestForm->execute(['id' => $id])) {

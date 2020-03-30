@@ -57,4 +57,21 @@ class ViewTaskControllerTest extends TestCase
         $actual = json_decode(strval($this->_response->getBody()), true);
         $this->assertEquals($tasks[0]->id, $actual['data']['id']);
     }
+
+    /**
+     * Test detail method
+     *
+     * @return void
+     */
+    public function test_存在しないとき404が返却されること(): void
+    {
+        // Arrange
+        $id = 'c366f5be-360b-45cc-8282-65c80e434f72';
+
+        // Act
+        $this->get("/api/ca-task/view/{$id}.json");
+
+        // Assert
+        $this->assertResponseCode(404);
+    }
 }

@@ -5,7 +5,10 @@ namespace App\Controller\Api\Task;
 
 use App\Controller\Api\ValidationErrorResponseForm;
 use App\Controller\AppController;
+use Cake\Http\Exception\NotFoundException;
 use Cake\Utility\Hash;
+use Cas\Domain\Model\TaskId;
+use Cas\UseCase\Task\ViewTask;
 
 /**
  * ViewTaskController
@@ -33,7 +36,7 @@ class ViewTaskController extends AppController
      * @param string $id id
      * @return void
      */
-    public function execute($id): void
+    public function execute(string $id): void
     {
         $requestForm = new ViewTaskRequestForm();
         if (!$requestForm->execute(Hash::merge($this->request->getData(), ['id' => $id]))) {
@@ -42,11 +45,15 @@ class ViewTaskController extends AppController
             return;
         }
 
-        $this->loadModel('Tasks');
-        $task = $this->Tasks->get($requestForm->id());
+        $adapter = new ViewTaskAdapter();
+        $useCase = new ViewTask($adapter);
+        $taskModel = $useCase->execute(TaskId::of($requestForm->id()));
+        if (is_null($taskModel)) {
+            throw new NotFoundException(__('見つかりませんでした。 id={0}', $requestForm->id()));
+        }
 
         $responseForm = new ViewTaskResponseForm();
-        $responseForm->execute(['task' => $task->toArray()]);
+        $responseForm->execute(['task' => $taskModel->toArray()]);
         $responseForm->response($this);
     }
 }

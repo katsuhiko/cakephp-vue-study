@@ -3,10 +3,12 @@ declare(strict_types=1);
 
 namespace App\Controller\Api\Task;
 
-use App\Controller\Api\ApplicationErrorResponseForm;
+use App\Adapter\TransactionAdapter;
 use App\Controller\Api\ValidationErrorResponseForm;
 use App\Controller\AppController;
 use Cake\Utility\Hash;
+use Cas\Domain\Model\TaskId;
+use Cas\UseCase\Task\UpdateTask;
 
 /**
  * UpdateTaskController
@@ -33,16 +35,12 @@ class UpdateTaskController extends AppController
      *     response="403",
      *     ref="#/components/responses/ValidationErrorResponseForm",
      *   ),
-     *   @OA\Response(
-     *     response="500",
-     *     ref="#/components/responses/ApplicationErrorResponseForm",
-     *   ),
      * )
      *
      * @param string $id id
      * @return void
      */
-    public function execute($id): void
+    public function execute(string $id): void
     {
         $requestForm = new UpdateTaskRequestForm();
         if (!$requestForm->execute(Hash::merge($this->request->getData(), ['id' => $id]))) {
@@ -51,20 +49,10 @@ class UpdateTaskController extends AppController
             return;
         }
 
-        $this->loadModel('Tasks');
-        $task = $this->Tasks->get($requestForm->id());
-        $task = $this->Tasks->patchEntity($task, $requestForm->data());
-        if ($task->hasErrors()) {
-            ApplicationErrorResponseForm::error($this, $task->getErrors());
-
-            return;
-        }
-
-        if (!$this->Tasks->save($task)) {
-            ApplicationErrorResponseForm::error($this, ['save' => __('更新できませんでした。')]);
-
-            return;
-        }
+        $adapter = new UpdateTaskAdapter();
+        $transaction = new TransactionAdapter();
+        $useCase = new UpdateTask($adapter, $transaction);
+        $task = $useCase->execute(TaskId::of($requestForm->id()), $requestForm->description());
 
         $responseForm = new UpdateTaskResponseForm();
         $responseForm->execute(['task' => $task->toArray()]);
