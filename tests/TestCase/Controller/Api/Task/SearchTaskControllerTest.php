@@ -8,11 +8,11 @@ use Cake\TestSuite\TestCase;
 use Fabricate\Fabricate;
 
 /**
- * App\Controller\Api\Task\TaskSearchController Test Case
+ * App\Controller\Api\Task\SearchTaskController Test Case
  *
- * @uses \App\Controller\Api\Task\TaskSearchController
+ * @uses \App\Controller\Api\Task\SearchTaskController
  */
-class TaskSearchControllerTest extends TestCase
+class SearchTaskControllerTest extends TestCase
 {
     use IntegrationTestTrait;
 

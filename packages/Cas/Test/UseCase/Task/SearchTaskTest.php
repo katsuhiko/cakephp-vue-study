@@ -5,11 +5,11 @@ namespace Cas\Test\UseCase\Task;
 
 use Cas\Domain\Model\Task;
 use Cas\Domain\Model\TaskId;
-use Cas\UseCase\Task\TaskSearch;
-use Cas\UseCase\Task\TaskSearchQueryPort;
+use Cas\UseCase\Task\SearchTask;
+use Cas\UseCase\Task\SearchTaskQueryPort;
 use PHPUnit\Framework\TestCase;
 
-class TaskSearchTest extends TestCase
+class SearchTaskTest extends TestCase
 {
     /**
      * @return void
@@ -17,8 +17,8 @@ class TaskSearchTest extends TestCase
     public function test_検索できること(): void
     {
         // Arrange
-        $useCase = new TaskSearch(
-            new class implements TaskSearchQueryPort
+        $useCase = new SearchTask(
+            new class implements SearchTaskQueryPort
             {
                 public function findTasks(?string $descriptionLike): array
                 {

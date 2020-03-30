@@ -7,19 +7,13 @@ use Cake\Form\Form;
 use Cake\Validation\Validator;
 
 /**
- * TaskUpdateRequestForm
- *
- * @OA\Schema(
- *   description="タスク更新リクエスト情報",
- *   type="object",
- *   required={"description"},
- * )
+ * ViewTaskRequestForm
  */
-class TaskUpdateRequestForm extends Form
+class ViewTaskRequestForm extends Form
 {
     /**
      * @OA\Parameter(
-     *   parameter="TaskUpdateRequestForm_id",
+     *   parameter="ViewTaskRequestForm_id",
      *   name="id",
      *   in="path",
      *   required=true,
@@ -33,18 +27,6 @@ class TaskUpdateRequestForm extends Form
     private $id;
 
     /**
-     * @OA\Property(
-     *   property="description",
-     *   type="string",
-     *   description="タスク内容",
-     *   example="朝の身だしなみチェック",
-     * )
-     *
-     * @var string
-     */
-    private $description;
-
-    /**
      * @param \Cake\Validation\Validator $validator Validator
      * @return \Cake\Validation\Validator
      */
@@ -54,11 +36,6 @@ class TaskUpdateRequestForm extends Form
             ->uuid('id')
             ->requirePresence('id')
             ->notEmptyString('id');
-
-        $validator
-            ->scalar('description')
-            ->requirePresence('description')
-            ->notEmptyString('description');
 
         return $validator;
     }
@@ -70,7 +47,6 @@ class TaskUpdateRequestForm extends Form
     protected function _execute(array $data): bool
     {
         $this->id = $data['id'];
-        $this->description = $data['description'];
 
         return true;
     }
@@ -81,15 +57,5 @@ class TaskUpdateRequestForm extends Form
     public function id(): string
     {
         return $this->id;
-    }
-
-    /**
-     * @return array{description:string}
-     */
-    public function data(): array
-    {
-        return [
-            'description' => $this->description,
-        ];
     }
 }

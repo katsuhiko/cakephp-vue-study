@@ -8,11 +8,11 @@ use App\Controller\Api\ValidationErrorResponseForm;
 use App\Controller\AppController;
 
 /**
- * TaskCreateController
+ * CreateTaskController
  *
  * @property \App\Model\Table\TasksTable $Tasks
  */
-class TaskCreateController extends AppController
+class CreateTaskController extends AppController
 {
     /**
      * @OA\Post(
@@ -21,11 +21,11 @@ class TaskCreateController extends AppController
      *   summary="タスクを登録する",
      *   @OA\RequestBody(
      *     required=true,
-     *     @OA\JsonContent(ref="#/components/schemas/TaskCreateRequestForm"),
+     *     @OA\JsonContent(ref="#/components/schemas/CreateTaskRequestForm"),
      *   ),
      *   @OA\Response(
      *     response="200",
-     *     ref="#/components/responses/TaskCreateResponseForm",
+     *     ref="#/components/responses/CreateTaskResponseForm",
      *   ),
      *   @OA\Response(
      *     response="403",
@@ -41,7 +41,7 @@ class TaskCreateController extends AppController
      */
     public function execute(): void
     {
-        $requestForm = new TaskCreateRequestForm();
+        $requestForm = new CreateTaskRequestForm();
         if (!$requestForm->execute($this->request->getData())) {
             ValidationErrorResponseForm::error($this, $requestForm->getErrors());
 
@@ -62,7 +62,7 @@ class TaskCreateController extends AppController
             return;
         }
 
-        $responseForm = new TaskCreateResponseForm();
+        $responseForm = new CreateTaskResponseForm();
         $responseForm->execute(['task' => $task->toArray()]);
         $responseForm->response($this);
     }

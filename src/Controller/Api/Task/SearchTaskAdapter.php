@@ -5,9 +5,9 @@ namespace App\Controller\Api\Task;
 
 use Cake\Collection\Collection;
 use Cake\ORM\Locator\LocatorAwareTrait;
-use Cas\UseCase\Task\TaskSearchQueryPort;
+use Cas\UseCase\Task\SearchTaskQueryPort;
 
-class TaskSearchAdapter implements TaskSearchQueryPort
+class SearchTaskAdapter implements SearchTaskQueryPort
 {
     use LocatorAwareTrait;
 

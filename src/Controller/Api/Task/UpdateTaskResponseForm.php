@@ -7,20 +7,20 @@ use Cake\Controller\Controller;
 use Cake\Form\Form;
 
 /**
- * TaskCreateResponseForm
+ * UpdateTaskResponseForm
  *
  * @OA\Response(
- *   response="TaskCreateResponseForm",
+ *   response="UpdateTaskResponseForm",
  *   description="OK",
- *   @OA\JsonContent(ref="#/components/schemas/TaskCreateResponseForm"),
+ *   @OA\JsonContent(ref="#/components/schemas/UpdateTaskResponseForm"),
  * )
  *
  * @OA\Schema(
- *   description="タスク登録レスポンス情報",
+ *   description="タスク更新レスポンス情報",
  *   type="object",
  * )
  */
-class TaskCreateResponseForm extends Form
+class UpdateTaskResponseForm extends Form
 {
     /**
      * @OA\Property(

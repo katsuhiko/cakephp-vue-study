@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Cas\UseCase\Task;
 
-interface TaskSearchQueryPort
+interface SearchTaskQueryPort
 {
     /**
      * @param string|null $descriptionLike descriptionLike

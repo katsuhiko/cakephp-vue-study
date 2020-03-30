@@ -8,12 +8,12 @@ use Cake\Controller\Controller;
 use Cake\Form\Form;
 
 /**
- * TaskSearchResponseForm
+ * SearchTaskResponseForm
  *
  * @OA\Response(
- *   response="TaskSearchResponseForm",
+ *   response="SearchTaskResponseForm",
  *   description="OK",
- *   @OA\JsonContent(ref="#/components/schemas/TaskSearchResponseForm"),
+ *   @OA\JsonContent(ref="#/components/schemas/SearchTaskResponseForm"),
  * )
  *
  * @OA\Schema(
@@ -21,7 +21,7 @@ use Cake\Form\Form;
  *   type="object",
  * )
  */
-class TaskSearchResponseForm extends Form
+class SearchTaskResponseForm extends Form
 {
     /**
      * @OA\Property(

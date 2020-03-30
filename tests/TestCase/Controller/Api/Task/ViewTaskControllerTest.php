@@ -8,11 +8,11 @@ use Cake\TestSuite\TestCase;
 use Fabricate\Fabricate;
 
 /**
- * App\Controller\Api\Task\TaskUpdateController Test Case
+ * App\Controller\Api\Task\ViewTaskController Test Case
  *
- * @uses \App\Controller\Api\Task\TaskUpdateController
+ * @uses \App\Controller\Api\Task\ViewTaskController
  */
-class TaskUpdateControllerTest extends TestCase
+class ViewTaskControllerTest extends TestCase
 {
     use IntegrationTestTrait;
 
@@ -40,18 +40,17 @@ class TaskUpdateControllerTest extends TestCase
     }
 
     /**
-     * Test update method
+     * Test detail method
      *
      * @return void
      */
-    public function test_更新できること(): void
+    public function test_該当1件を取得できること(): void
     {
         // Arrange
-        $tasks = Fabricate::create('Tasks', ['description' => 'created']);
-        $data = ['description' => 'updated'];
+        $tasks = Fabricate::create('Tasks');
 
         // Act
-        $this->put("/api/ca-task/update/{$tasks[0]->id}.json", $data);
+        $this->get("/api/ca-task/view/{$tasks[0]->id}.json");
 
         // Assert
         $this->assertResponseOk();

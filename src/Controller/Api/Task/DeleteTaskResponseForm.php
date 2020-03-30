@@ -7,14 +7,14 @@ use Cake\Controller\Controller;
 use Cake\Form\Form;
 
 /**
- * TaskDeleteResponseForm
+ * DeleteTaskResponseForm
  *
  * @OA\Response(
- *   response="TaskDeleteResponseForm",
+ *   response="DeleteTaskResponseForm",
  *   description="No Content",
  * )
  */
-class TaskDeleteResponseForm extends Form
+class DeleteTaskResponseForm extends Form
 {
     /**
      * @param array $data data

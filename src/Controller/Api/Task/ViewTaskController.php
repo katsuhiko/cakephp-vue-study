@@ -8,21 +8,21 @@ use App\Controller\AppController;
 use Cake\Utility\Hash;
 
 /**
- * TaskDetailController
+ * ViewTaskController
  *
  * @property \App\Model\Table\TasksTable $Tasks
  */
-class TaskDetailController extends AppController
+class ViewTaskController extends AppController
 {
     /**
      * @OA\Get(
-     *   path="/api/ca-task/detail/{id}.json",
+     *   path="/api/ca-task/view/{id}.json",
      *   tags={"CaTask"},
      *   summary="タスクを参照する",
-     *   @OA\Parameter(ref="#/components/parameters/TaskDetailRequestForm_id"),
+     *   @OA\Parameter(ref="#/components/parameters/ViewTaskRequestForm_id"),
      *   @OA\Response(
      *     response="200",
-     *     ref="#/components/responses/TaskDetailResponseForm",
+     *     ref="#/components/responses/ViewTaskResponseForm",
      *   ),
      *   @OA\Response(
      *     response="403",
@@ -35,7 +35,7 @@ class TaskDetailController extends AppController
      */
     public function execute($id): void
     {
-        $requestForm = new TaskDetailRequestForm();
+        $requestForm = new ViewTaskRequestForm();
         if (!$requestForm->execute(Hash::merge($this->request->getData(), ['id' => $id]))) {
             ValidationErrorResponseForm::error($this, $requestForm->getErrors());
 
@@ -45,7 +45,7 @@ class TaskDetailController extends AppController
         $this->loadModel('Tasks');
         $task = $this->Tasks->get($requestForm->id());
 
-        $responseForm = new TaskDetailResponseForm();
+        $responseForm = new ViewTaskResponseForm();
         $responseForm->execute(['task' => $task->toArray()]);
         $responseForm->response($this);
     }

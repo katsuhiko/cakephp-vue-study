@@ -5,14 +5,13 @@ namespace App\Test\TestCase\Controller\Api\Task;
 
 use Cake\TestSuite\IntegrationTestTrait;
 use Cake\TestSuite\TestCase;
-use Fabricate\Fabricate;
 
 /**
- * App\Controller\Api\Task\TaskDeleteController Test Case
+ * App\Controller\Api\Task\CreateTaskController Test Case
  *
- * @uses \App\Controller\Api\Task\TaskDeleteController
+ * @uses \App\Controller\Api\Task\CreateTaskController
  */
-class TaskDeleteControllerTest extends TestCase
+class CreateTaskControllerTest extends TestCase
 {
     use IntegrationTestTrait;
 
@@ -40,19 +39,21 @@ class TaskDeleteControllerTest extends TestCase
     }
 
     /**
-     * Test delete method
+     * Test create method
      *
      * @return void
      */
-    public function test_削除できること(): void
+    public function test_登録できること(): void
     {
         // Arrange
-        $tasks = Fabricate::create('Tasks');
+        $data = ['description' => 'created'];
 
         // Act
-        $this->delete("/api/ca-task/delete/{$tasks[0]->id}.json");
+        $this->post('/api/ca-task/create.json', $data);
 
         // Assert
         $this->assertResponseOk();
+        $actual = json_decode(strval($this->_response->getBody()), true);
+        $this->assertNotNull($actual['data']['id']);
     }
 }

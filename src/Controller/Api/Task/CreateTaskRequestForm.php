@@ -7,7 +7,7 @@ use Cake\Form\Form;
 use Cake\Validation\Validator;
 
 /**
- * TaskCreateRequestForm
+ * CreateTaskRequestForm
  *
  * @OA\Schema(
  *   description="タスク登録リクエスト情報",
@@ -15,7 +15,7 @@ use Cake\Validation\Validator;
  *   required={"description"},
  * )
  */
-class TaskCreateRequestForm extends Form
+class CreateTaskRequestForm extends Form
 {
     /**
      * @OA\Property(

@@ -7,13 +7,13 @@ use Cake\Form\Form;
 use Cake\Validation\Validator;
 
 /**
- * TaskDeleteRequestForm
+ * DeleteTaskRequestForm
  */
-class TaskDeleteRequestForm extends Form
+class DeleteTaskRequestForm extends Form
 {
     /**
      * @OA\Parameter(
-     *   parameter="TaskDeleteRequestForm_id",
+     *   parameter="DeleteTaskRequestForm_id",
      *   name="id",
      *   in="path",
      *   required=true,

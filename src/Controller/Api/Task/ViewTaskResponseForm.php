@@ -7,12 +7,12 @@ use Cake\Controller\Controller;
 use Cake\Form\Form;
 
 /**
- * TaskDetailResponseForm
+ * ViewTaskResponseForm
  *
  * @OA\Response(
- *   response="TaskDetailResponseForm",
+ *   response="ViewTaskResponseForm",
  *   description="OK",
- *   @OA\JsonContent(ref="#/components/schemas/TaskDetailResponseForm"),
+ *   @OA\JsonContent(ref="#/components/schemas/ViewTaskResponseForm"),
  * )
  *
  * @OA\Schema(
@@ -20,7 +20,7 @@ use Cake\Form\Form;
  *   type="object",
  * )
  */
-class TaskDetailResponseForm extends Form
+class ViewTaskResponseForm extends Form
 {
     /**
      * @OA\Property(

@@ -8,21 +8,21 @@ use App\Controller\Api\ValidationErrorResponseForm;
 use App\Controller\AppController;
 
 /**
- * TaskDeleteController
+ * DeleteTaskController
  *
  * @property \App\Model\Table\TasksTable $Tasks
  */
-class TaskDeleteController extends AppController
+class DeleteTaskController extends AppController
 {
     /**
      * @OA\Delete(
      *   path="/api/ca-task/delete/{id}.json",
      *   tags={"CaTask"},
      *   summary="タスクを削除する",
-     *   @OA\Parameter(ref="#/components/parameters/TaskDeleteRequestForm_id"),
+     *   @OA\Parameter(ref="#/components/parameters/DeleteTaskRequestForm_id"),
      *   @OA\Response(
      *     response="204",
-     *     ref="#/components/responses/TaskDeleteResponseForm",
+     *     ref="#/components/responses/DeleteTaskResponseForm",
      *   ),
      *   @OA\Response(
      *     response="403",
@@ -39,7 +39,7 @@ class TaskDeleteController extends AppController
      */
     public function execute($id): void
     {
-        $requestForm = new TaskDeleteRequestForm();
+        $requestForm = new DeleteTaskRequestForm();
         if (!$requestForm->execute(['id' => $id])) {
             ValidationErrorResponseForm::error($this, $requestForm->getErrors());
 
@@ -54,7 +54,7 @@ class TaskDeleteController extends AppController
             return;
         }
 
-        $responseForm = new TaskDeleteResponseForm();
+        $responseForm = new DeleteTaskResponseForm();
         $responseForm->execute(['task' => $task->toArray()]);
         $responseForm->response($this);
     }

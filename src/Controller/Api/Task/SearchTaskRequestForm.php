@@ -8,13 +8,13 @@ use Cake\Utility\Hash;
 use Cake\Validation\Validator;
 
 /**
- * TaskSearchRequestForm
+ * SearchTaskRequestForm
  */
-class TaskSearchRequestForm extends Form
+class SearchTaskRequestForm extends Form
 {
     /**
      * @OA\Parameter(
-     *   parameter="TaskSearchRequestForm_descriptionLike",
+     *   parameter="SearchTaskRequestForm_descriptionLike",
      *   name="description_like",
      *   in="query",
      *   required=false,
