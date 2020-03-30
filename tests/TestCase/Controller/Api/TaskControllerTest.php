@@ -79,7 +79,7 @@ class TaskControllerTest extends TestCase
     }
 
     /**
-     * Test detail method
+     * Test view method
      *
      * @return void
      */
@@ -89,7 +89,7 @@ class TaskControllerTest extends TestCase
         $tasks = Fabricate::create('Tasks');
 
         // Act
-        $this->get("/api/task/detail/{$tasks[0]->id}.json");
+        $this->get("/api/task/view/{$tasks[0]->id}.json");
 
         // Assert
         $this->assertResponseOk();

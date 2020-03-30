@@ -92,10 +92,10 @@ class TaskController extends AppController
     }
 
     /**
-     * Detail method
+     * View method
      *
      * @OA\Get(
-     *   path="/api/task/detail/{id}.json",
+     *   path="/api/task/view/{id}.json",
      *   tags={"Task"},
      *   summary="タスクを参照する",
      *   @OA\Parameter(
@@ -147,7 +147,7 @@ class TaskController extends AppController
      * @param string $id id
      * @return void
      */
-    public function detail(string $id): void
+    public function view(string $id): void
     {
         $this->loadModel('Tasks');
         $task = $this->Tasks->get($id);
