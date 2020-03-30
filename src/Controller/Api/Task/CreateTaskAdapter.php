@@ -5,30 +5,22 @@ namespace App\Controller\Api\Task;
 
 use Cake\ORM\Locator\LocatorAwareTrait;
 use Cas\Domain\Model\Task;
-use Cas\Domain\Model\TaskId;
-use Cas\UseCase\Task\UpdateTaskCommandPort;
+use Cas\UseCase\Task\CreateTaskCommandPort;
 
-class UpdateTaskAdapter implements UpdateTaskCommandPort
+class CreateTaskAdapter implements CreateTaskCommandPort
 {
     use LocatorAwareTrait;
 
     /**
-     * @param \Cas\Domain\Model\TaskId $id id
      * @param string $description description
      * @return \Cas\Domain\Model\Task|null
      */
-    public function update(TaskId $id, string $description): ?Task
+    public function create(string $description): ?Task
     {
         $Tasks = $this->getTableLocator()->get('Tasks');
 
-        /** @var \App\Model\Entity\Task|null $old */
-        $old = $Tasks->find()->where(['id' => $id->asString()])->first();
-        if (is_null($old)) {
-            return null;
-        }
-
         /** @var \App\Model\Entity\Task $task */
-        $task = $Tasks->patchEntity($old, [
+        $task = $Tasks->newEntity([
             'description' => $description,
         ]);
         if ($task->hasErrors()) {

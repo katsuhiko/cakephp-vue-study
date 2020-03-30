@@ -3,9 +3,10 @@ declare(strict_types=1);
 
 namespace App\Controller\Api\Task;
 
-use App\Controller\Api\ApplicationErrorResponseForm;
+use App\Adapter\TransactionAdapter;
 use App\Controller\Api\ValidationErrorResponseForm;
 use App\Controller\AppController;
+use Cas\UseCase\Task\CreateTask;
 
 /**
  * CreateTaskController
@@ -48,19 +49,10 @@ class CreateTaskController extends AppController
             return;
         }
 
-        $this->loadModel('Tasks');
-        $task = $this->Tasks->newEntity($requestForm->data());
-        if ($task->hasErrors()) {
-            ApplicationErrorResponseForm::error($this, $task->getErrors());
-
-            return;
-        }
-
-        if (!$this->Tasks->save($task)) {
-            ApplicationErrorResponseForm::error($this, ['save' => __('登録できませんでした。')]);
-
-            return;
-        }
+        $adapter = new CreateTaskAdapter();
+        $transaction = new TransactionAdapter();
+        $useCase = new CreateTask($adapter, $transaction);
+        $task = $useCase->execute($requestForm->description());
 
         $responseForm = new CreateTaskResponseForm();
         $responseForm->execute(['task' => $task->toArray()]);

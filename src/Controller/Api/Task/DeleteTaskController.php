@@ -3,9 +3,11 @@ declare(strict_types=1);
 
 namespace App\Controller\Api\Task;
 
-use App\Controller\Api\ApplicationErrorResponseForm;
+use App\Adapter\TransactionAdapter;
 use App\Controller\Api\ValidationErrorResponseForm;
 use App\Controller\AppController;
+use Cas\Domain\Model\TaskId;
+use Cas\UseCase\Task\DeleteTask;
 
 /**
  * DeleteTaskController
@@ -28,10 +30,6 @@ class DeleteTaskController extends AppController
      *     response="403",
      *     ref="#/components/responses/ValidationErrorResponseForm",
      *   ),
-     *   @OA\Response(
-     *     response="500",
-     *     ref="#/components/responses/ApplicationErrorResponseForm",
-     *   ),
      * )
      *
      * @param string $id id
@@ -46,13 +44,10 @@ class DeleteTaskController extends AppController
             return;
         }
 
-        $this->loadModel('Tasks');
-        $task = $this->Tasks->get($requestForm->id());
-        if (!$this->Tasks->delete($task)) {
-            ApplicationErrorResponseForm::error($this, ['delete' => __('削除できませんでした。')]);
-
-            return;
-        }
+        $adapter = new DeleteTaskAdapter();
+        $transaction = new TransactionAdapter();
+        $useCase = new DeleteTask($adapter, $transaction);
+        $task = $useCase->execute(TaskId::of($requestForm->id()));
 
         $responseForm = new DeleteTaskResponseForm();
         $responseForm->execute(['task' => $task->toArray()]);
