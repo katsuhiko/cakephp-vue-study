@@ -21,7 +21,7 @@ class SearchTaskAdapter implements SearchTaskQueryPort
 
         $query = $Tasks->find();
         if (!is_null($descriptionLike)) {
-            $query->where(['description LIKE' => "%{$descriptionLike}%"]);
+            $query->where(['Tasks.description LIKE' => "%{$descriptionLike}%"]);
         }
         $tasks = $query->all();
 
