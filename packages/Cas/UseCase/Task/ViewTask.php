@@ -26,9 +26,9 @@ class ViewTask
 
     /**
      * @param \Cas\Domain\Model\TaskId $id id
-     * @return \Cas\Domain\Model\Task|null
+     * @return \Cas\Domain\Model\Task
      */
-    public function execute(TaskId $id): ?Task
+    public function execute(TaskId $id): Task
     {
         return $this->query->findTask($id);
     }

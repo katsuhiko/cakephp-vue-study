@@ -20,7 +20,7 @@ class ViewTaskTest extends TestCase
         $useCase = new ViewTask(
             new class implements ViewTaskQueryPort
             {
-                public function findTask(TaskId $id): ?Task
+                public function findTask(TaskId $id): Task
                 {
                     return new Task($id, 'viewed');
                 }

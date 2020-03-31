@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace Cas\UseCase\Task;
 
-use Cas\Domain\Exception\DomainException;
 use Cas\Domain\Model\Task;
 use Cas\Domain\Model\TaskId;
 use Cas\UseCase\TransactionPort;
@@ -40,12 +39,7 @@ class DeleteTask
     public function execute(TaskId $id): Task
     {
         return $this->transaction->transactional(function () use ($id) {
-            $task = $this->command->delete($id);
-            if (is_null($task)) {
-                throw new DomainException("Delete faild. task_id={$id->asString()}");
-            }
-
-            return $task;
+            return $this->command->delete($id);
         });
     }
 }

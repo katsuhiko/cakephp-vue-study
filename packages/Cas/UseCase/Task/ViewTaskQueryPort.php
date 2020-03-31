@@ -10,7 +10,7 @@ interface ViewTaskQueryPort
 {
     /**
      * @param \Cas\Domain\Model\TaskId $id id
-     * @return \Cas\Domain\Model\Task|null
+     * @return \Cas\Domain\Model\Task
      */
-    public function findTask(TaskId $id): ?Task;
+    public function findTask(TaskId $id): Task;
 }

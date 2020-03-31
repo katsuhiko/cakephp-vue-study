@@ -11,7 +11,7 @@ interface UpdateTaskCommandPort
     /**
      * @param \Cas\Domain\Model\TaskId $id id
      * @param string $description description
-     * @return \Cas\Domain\Model\Task|null
+     * @return \Cas\Domain\Model\Task
      */
-    public function update(TaskId $id, string $description): ?Task;
+    public function update(TaskId $id, string $description): Task;
 }

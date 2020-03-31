@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace Cas\UseCase\Task;
 
-use Cas\Domain\Exception\DomainException;
 use Cas\Domain\Model\Task;
 use Cas\UseCase\TransactionPort;
 
@@ -39,12 +38,7 @@ class CreateTask
     public function execute(string $description): Task
     {
         return $this->transaction->transactional(function () use ($description) {
-            $task = $this->command->create($description);
-            if (is_null($task)) {
-                throw new DomainException("Create faild. description={$description}");
-            }
-
-            return $task;
+            return $this->command->create($description);
         });
     }
 }

@@ -9,7 +9,7 @@ interface CreateTaskCommandPort
 {
     /**
      * @param string $description description
-     * @return \Cas\Domain\Model\Task|null
+     * @return \Cas\Domain\Model\Task
      */
-    public function create(string $description): ?Task;
+    public function create(string $description): Task;
 }

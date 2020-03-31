@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace Cas\UseCase\Task;
 
-use Cas\Domain\Exception\DomainException;
 use Cas\Domain\Model\Task;
 use Cas\Domain\Model\TaskId;
 use Cas\UseCase\TransactionPort;
@@ -41,12 +40,7 @@ class UpdateTask
     public function execute(TaskId $id, string $description): Task
     {
         return $this->transaction->transactional(function () use ($id, $description) {
-            $task = $this->command->update($id, $description);
-            if (is_null($task)) {
-                throw new DomainException("Update faild. task_id={$id->asString()}, description={$description}");
-            }
-
-            return $task;
+            return $this->command->update($id, $description);
         });
     }
 }
