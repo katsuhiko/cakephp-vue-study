@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Cas\UseCase\Task;
 
 use Cas\Domain\Model\Task;
+use Cas\Domain\Model\TaskId;
 use Cas\UseCase\TransactionPort;
 
 /**
@@ -38,7 +39,9 @@ class CreateTask
     public function execute(string $description): Task
     {
         return $this->transaction->transactional(function () use ($description) {
-            return $this->command->create($description);
+            $task = new Task(TaskId::newId(), $description);
+
+            return $this->command->create($task);
         });
     }
 }

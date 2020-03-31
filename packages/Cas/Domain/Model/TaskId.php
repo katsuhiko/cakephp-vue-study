@@ -6,6 +6,7 @@ namespace Cas\Domain\Model;
 class TaskId
 {
     use ValueObjectStringTrait;
+    use ValueObjectUuidTrait;
 
     /**
      * @param string $value value

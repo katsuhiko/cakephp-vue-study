@@ -21,9 +21,9 @@ class CreateTaskTest extends TestCase
         $useCase = new CreateTask(
             new class implements CreateTaskCommandPort
             {
-                public function create(string $description): Task
+                public function create(Task $task): Task
                 {
-                    return new Task(TaskId::of('c366f5be-360b-45cc-8282-65c80e434f72'), $description);
+                    return $task;
                 }
             },
             new class implements TransactionPort

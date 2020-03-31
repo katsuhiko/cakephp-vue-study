@@ -8,8 +8,8 @@ use Cas\Domain\Model\Task;
 interface CreateTaskCommandPort
 {
     /**
-     * @param string $description description
+     * @param \Cas\Domain\Model\Task $task task
      * @return \Cas\Domain\Model\Task
      */
-    public function create(string $description): Task;
+    public function create(Task $task): Task;
 }

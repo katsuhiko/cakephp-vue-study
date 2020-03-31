@@ -13,22 +13,24 @@ class CreateTaskAdapter implements CreateTaskCommandPort
     use LocatorAwareTrait;
 
     /**
-     * @param string $description description
+     * @param \Cas\Domain\Model\Task $task task
      * @return \Cas\Domain\Model\Task
      */
-    public function create(string $description): Task
+    public function create(Task $task): Task
     {
         $Tasks = $this->getTableLocator()->get('Tasks');
 
-        /** @var \App\Model\Entity\Task $task */
-        $task = $Tasks->newEmptyEntity();
+        /** @var \App\Model\Entity\Task $taskEntity */
+        $taskEntity = $Tasks->newEmptyEntity();
+        $taskArray = $task->toArray();
 
-        $task->description = $description;
+        $taskEntity->id = $taskArray['id'];
+        $taskEntity->description = $taskArray['description'];
 
-        if (!$Tasks->save($task, ['atomic' => false])) {
+        if (!$Tasks->save($taskEntity, ['atomic' => false, 'checkExisting' => false])) {
             throw new DomainSystemException("登録できませんでした。");
         }
 
-        return $task->toModel();
+        return $taskEntity->toModel();
     }
 }
