@@ -68,7 +68,7 @@ class TasksTableTest extends TestCase
         $tasks = $this->Tasks->find()->all();
 
         // Assert
-        $this->assertEquals(3, count($tasks));
+        $this->assertSame(3, count($tasks));
     }
 
     /**
@@ -83,7 +83,7 @@ class TasksTableTest extends TestCase
         $tasks = $this->Tasks->find()->all();
 
         // Assert
-        $this->assertEquals(3, count($tasks));
+        $this->assertSame(3, count($tasks));
     }
 
     // 下の部分に誤りがある気がする。 PR をだす。
@@ -102,6 +102,6 @@ class TasksTableTest extends TestCase
     //     });
     //     $this->Tasks->save($task);
     //     $actual = $this->Tasks->get($task->id);
-    //     $this->assertEquals('test', $actual->description);
+    //     $this->assertSame('test', $actual->description);
     // }
 }

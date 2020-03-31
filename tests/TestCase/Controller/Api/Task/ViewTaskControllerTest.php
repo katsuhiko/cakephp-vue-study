@@ -32,6 +32,7 @@ class ViewTaskControllerTest extends TestCase
      */
     public function setUp(): void
     {
+        parent::setUp();
         $this->configRequest([
             'headers' => [
                 'Accept' => 'application/json',
@@ -55,7 +56,7 @@ class ViewTaskControllerTest extends TestCase
         // Assert
         $this->assertResponseOk();
         $actual = json_decode(strval($this->_response->getBody()), true);
-        $this->assertEquals($tasks[0]->id, $actual['data']['id']);
+        $this->assertSame($tasks[0]->id, $actual['data']['id']);
     }
 
     /**

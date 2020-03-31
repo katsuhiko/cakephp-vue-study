@@ -55,7 +55,7 @@ class TaskControllerTest extends TestCase
         // Assert
         $this->assertResponseOk();
         $actual = json_decode(strval($this->_response->getBody()), true);
-        $this->assertEquals(3, count($actual['tasks']));
+        $this->assertSame(3, count($actual['tasks']));
     }
 
     /**
@@ -75,7 +75,7 @@ class TaskControllerTest extends TestCase
         // Assert
         $this->assertResponseOk();
         $actual = json_decode(strval($this->_response->getBody()), true);
-        $this->assertEquals(2, count($actual['tasks']));
+        $this->assertSame(2, count($actual['tasks']));
     }
 
     /**
@@ -94,7 +94,7 @@ class TaskControllerTest extends TestCase
         // Assert
         $this->assertResponseOk();
         $actual = json_decode(strval($this->_response->getBody()), true);
-        $this->assertEquals($tasks[0]->id, $actual['task']['id']);
+        $this->assertSame($tasks[0]->id, $actual['task']['id']);
     }
 
     /**
@@ -133,7 +133,7 @@ class TaskControllerTest extends TestCase
         // Assert
         $this->assertResponseOk();
         $actual = json_decode(strval($this->_response->getBody()), true);
-        $this->assertEquals($tasks[0]->id, $actual['task']['id']);
+        $this->assertSame($tasks[0]->id, $actual['task']['id']);
     }
 
     /**

@@ -32,6 +32,7 @@ class SearchTaskControllerTest extends TestCase
      */
     public function setUp(): void
     {
+        parent::setUp();
         $this->configRequest([
             'headers' => [
                 'Accept' => 'application/json',
@@ -53,7 +54,7 @@ class SearchTaskControllerTest extends TestCase
         // Assert
         $this->assertResponseOk();
         $actual = json_decode(strval($this->_response->getBody()), true);
-        $this->assertEquals(3, count($actual['data']));
+        $this->assertSame(3, count($actual['data']));
     }
 
     /**
@@ -71,7 +72,7 @@ class SearchTaskControllerTest extends TestCase
         // Assert
         $this->assertResponseOk();
         $actual = json_decode(strval($this->_response->getBody()), true);
-        $this->assertEquals(2, count($actual['data']));
+        $this->assertSame(2, count($actual['data']));
     }
 
     /**
@@ -88,6 +89,6 @@ class SearchTaskControllerTest extends TestCase
         // Assert
         $this->assertResponseCode(403);
         $actual = json_decode(strval($this->_response->getBody()), true);
-        $this->assertEquals(1, count($actual['errors']));
+        $this->assertSame(1, count($actual['errors']));
     }
 }

@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace App\Test\TestCase\Controller\Api\Task;
 
+use App\Model\Table\TasksTable;
+use Cake\ORM\TableRegistry;
 use Cake\TestSuite\IntegrationTestTrait;
 use Cake\TestSuite\TestCase;
 use Fabricate\Fabricate;
@@ -26,17 +28,37 @@ class UpdateTaskControllerTest extends TestCase
     ];
 
     /**
+     * @var \App\Model\Table\TasksTable
+     */
+    protected $Tasks;
+
+    /**
      * setUp method
      *
      * @return void
      */
     public function setUp(): void
     {
+        parent::setUp();
+        $config = TableRegistry::getTableLocator()->exists('Tasks') ? [] : ['className' => TasksTable::class];
+        $this->Tasks = TableRegistry::getTableLocator()->get('Tasks', $config);
+
         $this->configRequest([
             'headers' => [
                 'Accept' => 'application/json',
             ],
         ]);
+    }
+
+    /**
+     * tearDown method
+     *
+     * @return void
+     */
+    public function tearDown(): void
+    {
+        unset($this->Tasks);
+        parent::tearDown();
     }
 
     /**
@@ -56,6 +78,9 @@ class UpdateTaskControllerTest extends TestCase
         // Assert
         $this->assertResponseOk();
         $actual = json_decode(strval($this->_response->getBody()), true);
-        $this->assertEquals($tasks[0]->id, $actual['data']['id']);
+        $this->assertSame($tasks[0]->id, $actual['data']['id']);
+
+        $updated = $this->Tasks->get($actual['data']['id']);
+        $this->assertSame('updated', $updated->description);
     }
 }

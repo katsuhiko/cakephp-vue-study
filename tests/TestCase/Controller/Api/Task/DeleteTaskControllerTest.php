@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace App\Test\TestCase\Controller\Api\Task;
 
+use App\Model\Table\TasksTable;
+use Cake\ORM\TableRegistry;
 use Cake\TestSuite\IntegrationTestTrait;
 use Cake\TestSuite\TestCase;
 use Fabricate\Fabricate;
@@ -26,17 +28,37 @@ class DeleteTaskControllerTest extends TestCase
     ];
 
     /**
+     * @var \App\Model\Table\TasksTable
+     */
+    protected $Tasks;
+
+    /**
      * setUp method
      *
      * @return void
      */
     public function setUp(): void
     {
+        parent::setUp();
+        $config = TableRegistry::getTableLocator()->exists('Tasks') ? [] : ['className' => TasksTable::class];
+        $this->Tasks = TableRegistry::getTableLocator()->get('Tasks', $config);
+
         $this->configRequest([
             'headers' => [
                 'Accept' => 'application/json',
             ],
         ]);
+    }
+
+    /**
+     * tearDown method
+     *
+     * @return void
+     */
+    public function tearDown(): void
+    {
+        unset($this->Tasks);
+        parent::tearDown();
     }
 
     /**
@@ -54,5 +76,8 @@ class DeleteTaskControllerTest extends TestCase
 
         // Assert
         $this->assertResponseOk();
+
+        $deleted = $this->Tasks->findById($tasks[0]->id)->first();
+        $this->assertNull($deleted);
     }
 }
