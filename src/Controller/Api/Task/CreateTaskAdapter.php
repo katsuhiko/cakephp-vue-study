@@ -29,7 +29,9 @@ class CreateTaskAdapter implements CreateTaskCommandPort
             throw new DomainArgumentException("登録時の引数が不正です。 task description={$description}");
         }
 
-        if (!$Tasks->save($task)) {
+        $task->description = $description;
+
+        if (!$Tasks->save($task, ['atomic' => false])) {
             throw new DomainSystemException("登録できませんでした。");
         }
 

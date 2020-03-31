@@ -38,7 +38,7 @@ class UpdateTaskAdapter implements UpdateTaskCommandPort
             throw new DomainArgumentException("更新時の引数が不正です。 task description={$description}");
         }
 
-        if (!$Tasks->save($task)) {
+        if (!$Tasks->save($task, ['atomic' => false])) {
             throw new DomainSystemException("更新できませんでした。 task id={$id->asString()}");
         }
 

@@ -28,7 +28,7 @@ class DeleteTaskAdapter implements DeleteTaskCommandPort
             throw new DomainNotFoundException("削除する情報がありませんでした。 task id={$id->asString()}");
         }
 
-        if (!$Tasks->delete($task)) {
+        if (!$Tasks->delete($task, ['atomic' => false])) {
             throw new DomainSystemException("削除できませんでした。 task id={$id->asString()}");
         }
 
