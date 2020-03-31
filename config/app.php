@@ -1,10 +1,10 @@
 <?php
 
+use App\Exception\ApplicationExceptionRenderer;
 use Cake\Cache\Engine\FileEngine;
 use Cake\Console\ConsoleOutput;
 use Cake\Database\Connection;
 use Cake\Database\Driver\Mysql;
-use Cake\Error\ExceptionRenderer;
 use Cake\Log\Engine\ConsoleLog;
 use Cake\Mailer\Transport\MailTransport;
 
@@ -179,7 +179,7 @@ return [
      */
     'Error' => [
         'errorLevel' => E_ALL,
-        'exceptionRenderer' => ExceptionRenderer::class,
+        'exceptionRenderer' => ApplicationExceptionRenderer::class,
         'skipLog' => [],
         'log' => true,
         'trace' => true,
