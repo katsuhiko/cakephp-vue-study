@@ -21,9 +21,9 @@ class UpdateTaskTest extends TestCase
         $useCase = new UpdateTask(
             new class implements UpdateTaskCommandPort
             {
-                public function update(TaskId $id, string $description): Task
+                public function update(Task $task): Task
                 {
-                    return new Task($id, $description);
+                    return $task;
                 }
             },
             new class implements TransactionPort

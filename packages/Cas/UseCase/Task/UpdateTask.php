@@ -40,7 +40,9 @@ class UpdateTask
     public function execute(TaskId $id, string $description): Task
     {
         return $this->transaction->transactional(function () use ($id, $description) {
-            return $this->command->update($id, $description);
+            $task = new Task($id, $description);
+
+            return $this->command->update($task);
         });
     }
 }

@@ -22,16 +22,16 @@ class DeleteTaskAdapter implements DeleteTaskCommandPort
     {
         $Tasks = $this->getTableLocator()->get('Tasks');
 
-        /** @var \App\Model\Entity\Task|null $task */
-        $task = $Tasks->find()->where(['id' => $id->asString()])->first();
-        if (is_null($task)) {
+        /** @var \App\Model\Entity\Task|null $taskEntity */
+        $taskEntity = $Tasks->find()->where(['id' => $id->asString()])->first();
+        if (is_null($taskEntity)) {
             throw new DomainNotFoundException("削除する情報がありませんでした。 task id={$id->asString()}");
         }
 
-        if (!$Tasks->delete($task, ['atomic' => false])) {
+        if (!$Tasks->delete($taskEntity, ['atomic' => false])) {
             throw new DomainSystemException("削除できませんでした。 task id={$id->asString()}");
         }
 
-        return $task->toModel();
+        return $taskEntity->toModel();
     }
 }
