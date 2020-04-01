@@ -57,7 +57,6 @@ class CreateTaskAdapterTest extends TestCase
     {
         unset($this->adapter);
         unset($this->Tasks);
-
         parent::tearDown();
     }
 
