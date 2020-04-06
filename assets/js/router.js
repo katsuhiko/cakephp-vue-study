@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 
 import Home from './components/HomeComponent.vue'
 import TaskList from './components/pages/TaskListPage.vue'
+import TaskAdd from './components/pages/TaskAddPage.vue'
 
 Vue.use(VueRouter)
 
@@ -13,8 +14,12 @@ const routes = [
     component: Home
   },
   {
-    path: '/tasks',
+    path: '/task/list',
     component: TaskList
+  },
+  {
+    path: '/task/add',
+    component: TaskAdd
   }
 ]
 
