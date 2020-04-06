@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace Cas\Test\UseCase\Task;
 
 use Cas\Domain\Model\Task;
-use Cas\Domain\Model\TaskId;
 use Cas\UseCase\Task\CreateTask;
 use Cas\UseCase\Task\CreateTaskCommandPort;
 use Cas\UseCase\TransactionPort;
