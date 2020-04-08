@@ -23,7 +23,9 @@ export default {
       <tbody>
         <tr v-for="task in tasks" :key="task.id">
           <td>{{ task.description }}</td>
-          <td>None</td>
+          <td>
+            <router-link :to="{ path: `/task/edit/${task.id}` }">編集</router-link>
+          </td>
         </tr>
       </tbody>
     </table>

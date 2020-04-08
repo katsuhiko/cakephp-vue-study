@@ -4,6 +4,7 @@ import VueRouter from 'vue-router'
 import Home from './components/HomeComponent.vue'
 import TaskList from './components/pages/TaskListPage.vue'
 import TaskAdd from './components/pages/TaskAddPage.vue'
+import TaskEdit from './components/pages/TaskEditPage.vue'
 
 Vue.use(VueRouter)
 
@@ -20,6 +21,10 @@ const routes = [
   {
     path: '/task/add',
     component: TaskAdd
+  },
+  {
+    path: '/task/edit/:id',
+    component: TaskEdit
   }
 ]
 
