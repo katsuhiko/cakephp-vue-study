@@ -4,9 +4,6 @@ export default {
     tasks: {
       type: Array
     }
-  },
-  data() {
-    return {};
   }
 };
 </script>
