@@ -49,7 +49,7 @@ class PagesController extends AppController
         $CopyTasks = $this->getTableLocator()->get('CopyTasks');
 
         $select = $Tasks->find();
-        $select = $select->select(['id' => $select->func()->uuid(), 'description', 'copied' => 1])
+        $select = $select->select([$select->func()->uuid(), 'description', 1])
             ->limit(5);
 
         $CopyTasks->query()
