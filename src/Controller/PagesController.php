@@ -43,6 +43,20 @@ class PagesController extends AppController
         // $this->log("debug log!!", 'debug');
         // $this->log("error log!!", 'error');
 
+        // Insert into select
+        // see: https://book.cakephp.org/4/en/orm/query-builder.html#inserting-data
+        $Tasks = $this->getTableLocator()->get('Tasks');
+        $CopyTasks = $this->getTableLocator()->get('CopyTasks');
+
+        $select = $Tasks->find();
+        $select = $select->select(['id' => $select->func()->uuid(), 'description', 'copied' => 1])
+            ->limit(5);
+
+        $CopyTasks->query()
+            ->insert(['id', 'description', 'copied'])
+            ->values($select)
+            ->execute();
+
         return $this->render();
     }
 

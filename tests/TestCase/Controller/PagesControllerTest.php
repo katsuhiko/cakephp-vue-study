@@ -30,6 +30,16 @@ class PagesControllerTest extends TestCase
     use IntegrationTestTrait;
 
     /**
+     * Fixtures
+     *
+     * @var array
+     */
+    protected $fixtures = [
+        'app.Tasks',
+        'app.CopyTasks',
+    ];
+
+    /**
      * @return void
      */
     public function test_Vueルートページを表示(): void
