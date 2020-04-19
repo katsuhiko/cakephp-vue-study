@@ -86,6 +86,10 @@ $routes->scope('/', function (RouteBuilder $builder) {
      */
     $builder->applyMiddleware('csrf');
 
+    $builder->connect('/login', ['controller' => 'Auth', 'action' => 'login']);
+    $builder->connect('/logout', ['controller' => 'Auth', 'action' => 'logout']);
+    $builder->connect('/auth/callback', ['controller' => 'Auth', 'action' => 'callback']);
+
     /*
      * Here, we are connecting '/' (base path) to a controller called 'Pages',
      * its action called 'display', and we pass a param to select the view file
