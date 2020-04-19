@@ -72,7 +72,7 @@ class AuthController extends AppController
         ]);
 
         $userInfo = $auth0->getUser();
-        //debug($userInfo);
+        debug($userInfo);
 
         return $this->render();
     }
