@@ -76,4 +76,23 @@ class AuthController extends AppController
 
         return $this->render();
     }
+
+    /**
+     * @return \Cake\Http\Response|null
+     */
+    public function user(): ?Response
+    {
+        $auth0 = new Auth0([
+            'domain' => env('AUTH0_DOMAIN', ''),
+            'client_id' => env('AUTH0_CLIENT_ID', ''),
+            'client_secret' => env('AUTH0_CLIENT_SECRET', ''),
+            'redirect_uri' => env('AUTH0_CALLBACK_URL', ''),
+            'scope' => 'openid profile email',
+        ]);
+
+        $userInfo = $auth0->getUser();
+        debug($userInfo);
+
+        return $this->render();
+    }
 }
