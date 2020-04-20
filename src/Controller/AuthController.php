@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use Auth0\SDK\API\Authentication;
+use Auth0\SDK\API\Management;
 use Auth0\SDK\Auth0;
 use Cake\Http\Response;
 
@@ -17,13 +18,13 @@ class AuthController extends AppController
      */
     public function login(): ?Response
     {
-        $auth0 = new Auth0([
-            'domain' => env('AUTH0_DOMAIN', ''),
-            'client_id' => env('AUTH0_CLIENT_ID', ''),
-            'client_secret' => env('AUTH0_CLIENT_SECRET', ''),
-            'redirect_uri' => env('AUTH0_CALLBACK_URL', ''),
-            'scope' => 'openid profile email',
-        ]);
+        // Session を破棄して、Auth0のユーザー情報を空にする。
+        // そうしないと、Auth0->exchange() で
+        // Can't initialize a new session while there is one active session already
+        // が発生する。
+        $this->getRequest()->getSession()->destroy();
+
+        $auth0 = $this->auth0();
 
         $loginUrl = $auth0->getLoginUrl();
 
@@ -35,13 +36,7 @@ class AuthController extends AppController
      */
     public function logout(): ?Response
     {
-        $auth0 = new Auth0([
-            'domain' => env('AUTH0_DOMAIN', ''),
-            'client_id' => env('AUTH0_CLIENT_ID', ''),
-            'client_secret' => env('AUTH0_CLIENT_SECRET', ''),
-            'redirect_uri' => env('AUTH0_CALLBACK_URL', ''),
-            'scope' => 'openid profile email',
-        ]);
+        $auth0 = $this->auth0();
 
         $auth0->logout();
 
@@ -49,10 +44,10 @@ class AuthController extends AppController
         $domain = env('AUTH0_DOMAIN', '');
         /** @var string $clientId */
         $clientId = env('AUTH0_CLIENT_ID', '');
+        $authApi = new Authentication($domain, $clientId);
+
         /** @var string $returnTo */
         $returnTo = env('AUTH0_LOGOUT_URL', '');
-
-        $authApi = new Authentication($domain, $clientId);
         $logoutUrl = $authApi->get_logout_link($returnTo, $clientId);
 
         return $this->redirect($logoutUrl);
@@ -63,16 +58,9 @@ class AuthController extends AppController
      */
     public function callback(): ?Response
     {
-        $auth0 = new Auth0([
-            'domain' => env('AUTH0_DOMAIN', ''),
-            'client_id' => env('AUTH0_CLIENT_ID', ''),
-            'client_secret' => env('AUTH0_CLIENT_SECRET', ''),
-            'redirect_uri' => env('AUTH0_CALLBACK_URL', ''),
-            'scope' => 'openid profile email',
-        ]);
+        $auth0 = $this->auth0();
 
-        $userInfo = $auth0->getUser();
-        debug($userInfo);
+        $auth0->exchange();
 
         return $this->render();
     }
@@ -82,17 +70,49 @@ class AuthController extends AppController
      */
     public function user(): ?Response
     {
-        $auth0 = new Auth0([
+        $auth0 = $this->auth0();
+
+        debug($auth0->getUser());
+        debug($auth0->getAccessToken());
+        debug($auth0->getIdToken());
+        debug($auth0->getRefreshToken());
+
+        // Management API を呼び出すサンプル
+
+        /** @var string $domain */
+        $domain = env('AUTH0_DOMAIN', '');
+        /** @var string $clientId */
+        $clientId = env('AUTH0_CLIENT_ID', '');
+        $authApi = new Authentication($domain, $clientId);
+
+        $config = [
+            'client_id' => env('AUTH0_CLIENT_ID', ''),
+            'client_secret' => env('AUTH0_CLIENT_SECRET', ''),
+            'audience' => env('AUTH0_MANAGEMENT_AUDIENCE', ''),
+        ];
+        $credential = $authApi->client_credentials($config);
+        debug($credential);
+
+        $accessToken = $credential['access_token'];
+        $mgmtApi = new Management($accessToken, $domain);
+
+        $users = $mgmtApi->users()->getAll();
+        debug($users);
+
+        return $this->render();
+    }
+
+    /**
+     * @return \Auth0\SDK\Auth0
+     */
+    private function auth0(): Auth0
+    {
+        return new Auth0([
             'domain' => env('AUTH0_DOMAIN', ''),
             'client_id' => env('AUTH0_CLIENT_ID', ''),
             'client_secret' => env('AUTH0_CLIENT_SECRET', ''),
             'redirect_uri' => env('AUTH0_CALLBACK_URL', ''),
             'scope' => 'openid profile email',
         ]);
-
-        $userInfo = $auth0->getUser();
-        debug($userInfo);
-
-        return $this->render();
     }
 }
