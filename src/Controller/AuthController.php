@@ -13,6 +13,20 @@ use Cake\Http\Response;
 class AuthController extends AppController
 {
     /**
+     * @return \Auth0\SDK\Auth0
+     */
+    private function auth0(): Auth0
+    {
+        return new Auth0([
+            'domain' => env('AUTH0_DOMAIN', ''),
+            'client_id' => env('AUTH0_CLIENT_ID', ''),
+            'client_secret' => env('AUTH0_CLIENT_SECRET', ''),
+            'redirect_uri' => env('AUTH0_CALLBACK_URL', ''),
+            'scope' => 'openid profile email',
+        ]);
+    }
+
+    /**
      * @return \Cake\Http\Response|null
      */
     public function login(): ?Response
@@ -77,19 +91,5 @@ class AuthController extends AppController
         debug($auth0->getRefreshToken());
 
         return $this->render();
-    }
-
-    /**
-     * @return \Auth0\SDK\Auth0
-     */
-    private function auth0(): Auth0
-    {
-        return new Auth0([
-            'domain' => env('AUTH0_DOMAIN', ''),
-            'client_id' => env('AUTH0_CLIENT_ID', ''),
-            'client_secret' => env('AUTH0_CLIENT_SECRET', ''),
-            'redirect_uri' => env('AUTH0_CALLBACK_URL', ''),
-            'scope' => 'openid profile email',
-        ]);
     }
 }
