@@ -77,28 +77,6 @@ class AuthController extends AppController
         debug($auth0->getIdToken());
         debug($auth0->getRefreshToken());
 
-        // Management API を呼び出すサンプル
-
-        /** @var string $domain */
-        $domain = env('AUTH0_DOMAIN', '');
-        /** @var string $clientId */
-        $clientId = env('AUTH0_CLIENT_ID', '');
-        $authApi = new Authentication($domain, $clientId);
-
-        $config = [
-            'client_id' => env('AUTH0_CLIENT_ID', ''),
-            'client_secret' => env('AUTH0_CLIENT_SECRET', ''),
-            'audience' => env('AUTH0_MANAGEMENT_AUDIENCE', ''),
-        ];
-        $credential = $authApi->client_credentials($config);
-        debug($credential);
-
-        $accessToken = $credential['access_token'];
-        $mgmtApi = new Management($accessToken, $domain);
-
-        $users = $mgmtApi->users()->getAll();
-        debug($users);
-
         return $this->render();
     }
 
