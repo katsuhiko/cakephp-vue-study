@@ -10,7 +10,7 @@ use Auth0\SDK\API\Management;
 /**
  * User Controller
  *
- * @property \App\Model\Table\TasksTable $Tasks
+ * @see https://auth0.com/docs/api/management/v2
  */
 class UserController extends AppController
 {
@@ -40,6 +40,7 @@ class UserController extends AppController
 
     /**
      * @return void
+     * @see https://auth0.com/docs/api/management/v2#!/Users/get_users
      */
     public function search(): void
     {
@@ -54,6 +55,7 @@ class UserController extends AppController
     /**
      * @param string $id id
      * @return void
+     * @see https://auth0.com/docs/api/management/v2#!/Users/get_users_by_id
      */
     public function view(string $id): void
     {
@@ -67,7 +69,7 @@ class UserController extends AppController
 
     /**
      * @return void
-     * @throws \App\Exception\ApplicationException
+     * @see https://auth0.com/docs/api/management/v2#!/Users/post_users
      */
     public function create(): void
     {
@@ -89,16 +91,17 @@ class UserController extends AppController
     /**
      * @param string $id id
      * @return void
-     * @throws \App\Exception\ApplicationException
+     * @see https://auth0.com/docs/api/management/v2#!/Users/patch_users_by_id
      */
     public function update(string $id): void
     {
         $mgmtApi = $this->managementApi();
 
         $data = $this->request->getData();
+        // 同時に更新できない項目があるので API ドキュメントを参照すること
         $userData = [
             'name' => $data['name'],
-            'nickname' => $data['nickname']
+            'nickname' => $data['nickname'],
         ];
         $user = $mgmtApi->users()->update($id, $userData);
 
@@ -109,7 +112,7 @@ class UserController extends AppController
     /**
      * @param string $id id
      * @return void
-     * @throws \App\Exception\ApplicationException
+     * @see https://auth0.com/docs/api/management/v2#!/Users/delete_users_by_id
      */
     public function delete(string $id): void
     {
