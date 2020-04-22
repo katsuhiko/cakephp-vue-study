@@ -15,12 +15,10 @@ use Auth0\SDK\API\Management;
 class UserController extends AppController
 {
     /**
-     * @return void
+     * @return \Auth0\SDK\API\Management
      */
-    public function search(): void
+    private function managementApi(): Management
     {
-        // Management API を呼び出すサンプル
-
         /** @var string $domain */
         $domain = env('AUTH0_DOMAIN', '');
         /** @var string $clientId */
@@ -37,6 +35,16 @@ class UserController extends AppController
         $accessToken = $credential['access_token'];
         $mgmtApi = new Management($accessToken, $domain);
 
+        return $mgmtApi;
+    }
+
+    /**
+     * @return void
+     */
+    public function search(): void
+    {
+        $mgmtApi = $this->managementApi();
+
         $users = $mgmtApi->users()->getAll();
 
         $this->set('data', $users);
@@ -49,6 +57,12 @@ class UserController extends AppController
      */
     public function view(string $id): void
     {
+        $mgmtApi = $this->managementApi();
+
+        $users = $mgmtApi->users()->get($id);
+
+        $this->set('data', $users);
+        $this->viewBuilder()->setOption('serialize', ['data']);
     }
 
     /**
@@ -57,6 +71,19 @@ class UserController extends AppController
      */
     public function create(): void
     {
+        $mgmtApi = $this->managementApi();
+
+        $data = $this->request->getData();
+        $userData = [
+            'email' => $data['email'],
+            'password' => $data['password'],
+            'connection' => 'Username-Password-Authentication',
+            'email_verified' => true,
+        ];
+        $user = $mgmtApi->users()->create($userData);
+
+        $this->set('data', $user);
+        $this->viewBuilder()->setOption('serialize', ['data']);
     }
 
     /**

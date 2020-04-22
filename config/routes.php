@@ -61,6 +61,8 @@ $routes->scope('/api', function (RouteBuilder $builder) {
 
     // User
     $builder->connect('/user/search', ['prefix' => 'Api', 'controller' => 'User', 'action' => 'search'])->setMethods(['GET']);
+    $builder->connect('/user/view/:id', ['prefix' => 'Api', 'controller' => 'User', 'action' => 'view'])->setPass(['id'])->setMethods(['GET']);
+    $builder->connect('/user/create', ['prefix' => 'Api', 'controller' => 'User', 'action' => 'create'])->setMethods(['POST']);
 
     // Task
     $builder->connect('/task/search', ['prefix' => 'Api', 'controller' => 'Task', 'action' => 'search'])->setMethods(['GET']);
