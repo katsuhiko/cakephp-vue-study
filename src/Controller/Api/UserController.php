@@ -93,6 +93,17 @@ class UserController extends AppController
      */
     public function update(string $id): void
     {
+        $mgmtApi = $this->managementApi();
+
+        $data = $this->request->getData();
+        $userData = [
+            'name' => $data['name'],
+            'nickname' => $data['nickname']
+        ];
+        $user = $mgmtApi->users()->update($id, $userData);
+
+        $this->set('data', $user);
+        $this->viewBuilder()->setOption('serialize', ['data']);
     }
 
     /**
@@ -102,5 +113,11 @@ class UserController extends AppController
      */
     public function delete(string $id): void
     {
+        $mgmtApi = $this->managementApi();
+
+        $user = $mgmtApi->users()->delete($id);
+
+        $this->set('data', $user);
+        $this->viewBuilder()->setOption('serialize', ['data']);
     }
 }
