@@ -1,23 +1,23 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Controller\Api\Auth;
+namespace App\Controller\Api;
 
+use App\Controller\AppController;
 use Auth0\SDK\API\Authentication;
 use Auth0\SDK\API\Management;
-use App\Controller\AppController;
 
 /**
- * SearchUserController
+ * User Controller
  *
  * @property \App\Model\Table\TasksTable $Tasks
  */
-class SearchUserController extends AppController
+class UserController extends AppController
 {
     /**
      * @return void
      */
-    public function execute(): void
+    public function search(): void
     {
         // Management API を呼び出すサンプル
 
@@ -41,5 +41,39 @@ class SearchUserController extends AppController
 
         $this->set('data', $users);
         $this->viewBuilder()->setOption('serialize', ['data']);
+    }
+
+    /**
+     * @param string $id id
+     * @return void
+     */
+    public function view(string $id): void
+    {
+    }
+
+    /**
+     * @return void
+     * @throws \App\Exception\ApplicationException
+     */
+    public function create(): void
+    {
+    }
+
+    /**
+     * @param string $id id
+     * @return void
+     * @throws \App\Exception\ApplicationException
+     */
+    public function update(string $id): void
+    {
+    }
+
+    /**
+     * @param string $id id
+     * @return void
+     * @throws \App\Exception\ApplicationException
+     */
+    public function delete(string $id): void
+    {
     }
 }

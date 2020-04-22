@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use Auth0\SDK\API\Authentication;
-use Auth0\SDK\API\Management;
 use Auth0\SDK\Auth0;
 use Cake\Http\Response;
 

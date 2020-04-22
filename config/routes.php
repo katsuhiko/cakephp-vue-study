@@ -59,8 +59,8 @@ $routes->scope('/api', function (RouteBuilder $builder) {
     // Preflight request
     $builder->connect('/*', ['prefix' => 'Api', 'controller' => 'Cors', 'action' => 'options'])->setMethods(['OPTIONS']);
 
-    // Auth
-    $builder->connect('/user/search', ['prefix' => 'Api/Auth', 'controller' => 'SearchUser', 'action' => 'execute'])->setMethods(['GET']);
+    // User
+    $builder->connect('/user/search', ['prefix' => 'Api', 'controller' => 'User', 'action' => 'search'])->setMethods(['GET']);
 
     // Task
     $builder->connect('/task/search', ['prefix' => 'Api', 'controller' => 'Task', 'action' => 'search'])->setMethods(['GET']);
