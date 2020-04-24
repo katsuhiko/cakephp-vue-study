@@ -23,6 +23,8 @@ class AuthController extends AppController
             'client_secret' => env('AUTH0_CLIENT_SECRET', ''),
             'redirect_uri' => env('AUTH0_CALLBACK_URL', ''),
             'scope' => 'openid profile email',
+            // 'skip_userinfo' => false,
+            'persist_access_token' => true,
         ]);
     }
 
@@ -82,6 +84,28 @@ class AuthController extends AppController
      * @return \Cake\Http\Response|null
      */
     public function user(): ?Response
+    {
+        $auth0 = $this->auth0();
+
+        /** @var string $domain */
+        $domain = env('AUTH0_DOMAIN', '');
+        /** @var string $clientId */
+        $clientId = env('AUTH0_CLIENT_ID', '');
+        $authApi = new Authentication($domain, $clientId);
+
+        /** @var string $accessToken */
+        $accessToken = $auth0->getAccessToken();
+        $user = $authApi->userinfo($accessToken);
+
+        debug($user);
+
+        return $this->render();
+    }
+
+    /**
+     * @return \Cake\Http\Response|null
+     */
+    public function cache(): ?Response
     {
         $auth0 = $this->auth0();
 

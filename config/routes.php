@@ -97,6 +97,7 @@ $routes->scope('/', function (RouteBuilder $builder) {
     $builder->connect('/logout', ['controller' => 'Auth', 'action' => 'logout']);
     $builder->connect('/auth/callback', ['controller' => 'Auth', 'action' => 'callback']);
     $builder->connect('/auth/user', ['controller' => 'Auth', 'action' => 'user']);
+    $builder->connect('/auth/cache', ['controller' => 'Auth', 'action' => 'cache']);
 
     /*
      * Here, we are connecting '/' (base path) to a controller called 'Pages',
