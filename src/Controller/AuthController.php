@@ -22,9 +22,27 @@ class AuthController extends AppController
             'client_id' => env('AUTH0_CLIENT_ID', ''),
             'client_secret' => env('AUTH0_CLIENT_SECRET', ''),
             'redirect_uri' => env('AUTH0_CALLBACK_URL', ''),
+
+            // refresh token が必要な場合は、scope へ offline_access を追加する
+            // @see https://auth0.com/docs/tokens/guides/get-refresh-tokens
             'scope' => 'openid profile email',
+            // 'scope' => 'openid profile email offline_access',
+
+            // exchange (code から access token を取得) 後、ユーザー情報を取得する場合は true とする
+            // access token と一緒に返却される id token(JWT) を decode したユーザー情報でよければ false (デフォルト) とする
             // 'skip_userinfo' => false,
+
+            // access token を Store (Session情報) へ保持しない場合は false とする
+            // 'persist_user' => false,
+
+            // access token を Store (Session情報) へ保持する場合は true とする
             'persist_access_token' => true,
+
+            // refresh token を Store (Session情報) へ保持する場合は true とする
+            // 'persist_refresh_token' => true,
+
+            // id token を Store (Session情報) へ保持する場合は true とする
+            // 'persist_id_token' => true,
         ]);
     }
 
