@@ -133,6 +133,17 @@ docker exec -it app php composer.phar require --dev zircote/swagger-php
 composer.json へ scripts を追加
 .gitignore へ追加
 
+
+## cakephp/authentication の導入
+
+- https://book.cakephp.org/4/en/tutorials-and-examples/cms/authentication.html
+- https://book.cakephp.org/authentication/2/en/index.html
+
+```
+docker exec -it app php composer.phar require cakephp/authentication:^2.0
+```
+
+
 ## 利用している主要プロダクトのリリース情報
 
 - https://github.com/cakephp/cakephp/releases
