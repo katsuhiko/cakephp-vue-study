@@ -16,6 +16,11 @@ declare(strict_types=1);
  */
 namespace App;
 
+use Authentication\AuthenticationService;
+use Authentication\AuthenticationServiceInterface;
+use Authentication\AuthenticationServiceProviderInterface;
+use Authentication\Identity;
+use Authentication\Middleware\AuthenticationMiddleware;
 use Cake\Core\Configure;
 use Cake\Core\Exception\MissingPluginException;
 use Cake\Error\Middleware\ErrorHandlerMiddleware;
@@ -23,6 +28,7 @@ use Cake\Http\BaseApplication;
 use Cake\Http\MiddlewareQueue;
 use Cake\Routing\Middleware\AssetMiddleware;
 use Cake\Routing\Middleware\RoutingMiddleware;
+use Psr\Http\Message\ServerRequestInterface;
 
 /**
  * Application setup class.
@@ -30,7 +36,7 @@ use Cake\Routing\Middleware\RoutingMiddleware;
  * This defines the bootstrapping logic and middleware layers you
  * want to use in your application.
  */
-class Application extends BaseApplication
+class Application extends BaseApplication implements AuthenticationServiceProviderInterface
 {
     /**
      * Load all the application configuration and bootstrap logic.
@@ -53,6 +59,8 @@ class Application extends BaseApplication
         if (Configure::read('debug')) {
             $this->addPlugin('DebugKit');
         }
+
+        $this->addPlugin('Authentication');
 
         // Load more plugins here
     }
@@ -81,9 +89,39 @@ class Application extends BaseApplication
             // creating the middleware instance specify the cache config name by
             // using it's second constructor argument:
             // `new RoutingMiddleware($this, '_cake_routes_')`
-            ->add(new RoutingMiddleware($this));
+            ->add(new RoutingMiddleware($this))
+
+            // add Authentication after RoutingMiddleware
+            ->add(new AuthenticationMiddleware($this));
 
         return $middlewareQueue;
+    }
+
+    /**
+     * @param \Psr\Http\Message\ServerRequestInterface $request request
+     * @return \Authentication\AuthenticationServiceInterface
+     */
+    public function getAuthenticationService(ServerRequestInterface $request): AuthenticationServiceInterface
+    {
+        $authenticationService = new AuthenticationService([
+            'unauthenticatedRedirect' => '/users/login',
+            'queryParam' => 'redirect',
+            'identityClass' => function ($identityData) {
+                return new Identity($identityData, [
+                    'fieldMap' => [
+                        'id' => 'sub',
+                    ],
+                ]);
+            },
+        ]);
+
+        // Auth0 のユーザー情報から、別途 アプリのユーザー情報を取得するのであれば、 Identifier を実装して、
+        // Authenticator から呼び出す必要がある。
+        // $authenticationService->loadIdentifier('Authentication.Password');
+
+        $authenticationService->loadAuthenticator('Auth0');
+
+        return $authenticationService;
     }
 
     /**

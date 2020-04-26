@@ -93,11 +93,21 @@ $routes->scope('/', function (RouteBuilder $builder) {
      */
     $builder->applyMiddleware('csrf');
 
-    $builder->connect('/login', ['controller' => 'Auth', 'action' => 'login']);
-    $builder->connect('/logout', ['controller' => 'Auth', 'action' => 'logout']);
-    $builder->connect('/auth/callback', ['controller' => 'Auth', 'action' => 'callback']);
-    $builder->connect('/auth/user', ['controller' => 'Auth', 'action' => 'user']);
-    $builder->connect('/auth/cache', ['controller' => 'Auth', 'action' => 'cache']);
+    $builder->connect('/home', ['controller' => 'Home', 'action' => 'index']);
+
+    $builder->connect('/users/login', ['controller' => 'Users', 'action' => 'login']);
+    $builder->connect('/users/logout', ['controller' => 'Users', 'action' => 'logout']);
+    $builder->connect('/users/callback', ['controller' => 'Users', 'action' => 'callback']);
+    $builder->connect('/users/user', ['controller' => 'Users', 'action' => 'user']);
+    $builder->connect('/users/cache', ['controller' => 'Users', 'action' => 'cache']);
+    $builder->connect('/users/identity', ['controller' => 'Users', 'action' => 'identity']);
+
+    // Auth0 の試しは終わり
+    // $builder->connect('/login', ['controller' => 'Auth', 'action' => 'login']);
+    // $builder->connect('/logout', ['controller' => 'Auth', 'action' => 'logout']);
+    // $builder->connect('/auth/callback', ['controller' => 'Auth', 'action' => 'callback']);
+    // $builder->connect('/auth/user', ['controller' => 'Auth', 'action' => 'user']);
+    // $builder->connect('/auth/cache', ['controller' => 'Auth', 'action' => 'cache']);
 
     /*
      * Here, we are connecting '/' (base path) to a controller called 'Pages',

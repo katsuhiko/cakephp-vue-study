@@ -24,6 +24,7 @@ use Cake\Controller\Controller;
  * Add your application-wide methods in the class below, your controllers
  * will inherit them.
  *
+ * @property \Authentication\Controller\Component\AuthenticationComponent $Authentication
  * @link https://book.cakephp.org/4/en/controllers.html#the-app-controller
  */
 class AppController extends Controller
@@ -43,6 +44,8 @@ class AppController extends Controller
 
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
+
+        $this->loadComponent('Authentication.Authentication');
 
         /*
          * Enable the following component for recommended CakePHP form protection settings.
