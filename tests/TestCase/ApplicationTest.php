@@ -17,6 +17,7 @@ declare(strict_types=1);
 namespace App\Test\TestCase;
 
 use App\Application;
+use Authentication\Middleware\AuthenticationMiddleware;
 use Cake\Error\Middleware\ErrorHandlerMiddleware;
 use Cake\Http\MiddlewareQueue;
 use Cake\Routing\Middleware\AssetMiddleware;
@@ -40,10 +41,11 @@ class ApplicationTest extends IntegrationTestCase
         $app->bootstrap();
         $plugins = $app->getPlugins();
 
-        $this->assertCount(3, $plugins);
+        $this->assertCount(4, $plugins);
         $this->assertSame('Bake', $plugins->get('Bake')->getName());
         $this->assertSame('DebugKit', $plugins->get('DebugKit')->getName());
         $this->assertSame('Migrations', $plugins->get('Migrations')->getName());
+        $this->assertSame('Authentication', $plugins->get('Authentication')->getName());
     }
 
     /**
@@ -83,5 +85,7 @@ class ApplicationTest extends IntegrationTestCase
         $this->assertInstanceOf(AssetMiddleware::class, $middleware->current());
         $middleware->seek(2);
         $this->assertInstanceOf(RoutingMiddleware::class, $middleware->current());
+        $middleware->seek(3);
+        $this->assertInstanceOf(AuthenticationMiddleware::class, $middleware->current());
     }
 }

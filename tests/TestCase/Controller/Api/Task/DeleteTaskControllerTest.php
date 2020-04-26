@@ -48,6 +48,13 @@ class DeleteTaskControllerTest extends TestCase
                 'Accept' => 'application/json',
             ],
         ]);
+
+        // 認証を通す。
+        $this->session([
+            'auth0__user' => [
+                'sub' => 'auth0|xxxxxxxxxxxxxxxxxxxxxxxx',
+            ],
+        ]);
     }
 
     /**

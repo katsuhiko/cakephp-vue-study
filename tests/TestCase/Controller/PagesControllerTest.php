@@ -40,6 +40,21 @@ class PagesControllerTest extends TestCase
     ];
 
     /**
+     * setUp method
+     *
+     * @return void
+     */
+    public function setUp(): void
+    {
+        // 認証を通す。
+        $this->session([
+            'auth0__user' => [
+                'sub' => 'auth0|xxxxxxxxxxxxxxxxxxxxxxxx',
+            ],
+        ]);
+    }
+
+    /**
      * @return void
      */
     public function test_Vueルートページを表示(): void
