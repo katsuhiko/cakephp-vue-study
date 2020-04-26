@@ -103,6 +103,48 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
      */
     public function getAuthenticationService(ServerRequestInterface $request): AuthenticationServiceInterface
     {
+        $serverPrams = $request->getServerParams();
+        $isAjax = (isset($serverPrams['HTTP_X_REQUESTED_WITH'])
+            && strtolower($serverPrams['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest');
+
+        if ($isAjax) {
+            return $this->getAuthenticationServiceForAjax();
+        } else {
+            return $this->getAuthenticationServiceForHtml();
+        }
+    }
+
+    /**
+     * @return \Authentication\AuthenticationServiceInterface
+     */
+    private function getAuthenticationServiceForAjax(): AuthenticationServiceInterface
+    {
+        $authenticationService = new AuthenticationService([
+            'unauthenticatedRedirect' => null,
+            'queryParam' => 'redirect',
+            'identityClass' => function ($identityData) {
+                return new Identity($identityData, [
+                    'fieldMap' => [
+                        'id' => 'sub',
+                    ],
+                ]);
+            },
+        ]);
+
+        // Auth0 のユーザー情報から、別途 アプリのユーザー情報を取得するのであれば、 Identifier を実装して、
+        // Authenticator から呼び出す必要がある。
+        // $authenticationService->loadIdentifier('Authentication.Password');
+
+        $authenticationService->loadAuthenticator('Auth0');
+
+        return $authenticationService;
+    }
+
+    /**
+     * @return \Authentication\AuthenticationServiceInterface
+     */
+    private function getAuthenticationServiceForHtml(): AuthenticationServiceInterface
+    {
         $authenticationService = new AuthenticationService([
             'unauthenticatedRedirect' => '/users/login',
             'queryParam' => 'redirect',
