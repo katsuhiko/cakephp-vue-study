@@ -103,21 +103,20 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
      */
     public function getAuthenticationService(ServerRequestInterface $request): AuthenticationServiceInterface
     {
-        $serverPrams = $request->getServerParams();
-        $isAjax = (isset($serverPrams['HTTP_X_REQUESTED_WITH'])
-            && strtolower($serverPrams['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest');
+        $path = $request->getUri()->getPath();
+        $isApi = (strpos($path, '/api/') === 0);
 
-        if ($isAjax) {
-            return $this->getAuthenticationServiceForAjax();
+        if ($isApi) {
+            return $this->getAuthenticationServiceForApi();
         } else {
-            return $this->getAuthenticationServiceForHtml();
+            return $this->getAuthenticationServiceForPage();
         }
     }
 
     /**
      * @return \Authentication\AuthenticationServiceInterface
      */
-    private function getAuthenticationServiceForAjax(): AuthenticationServiceInterface
+    private function getAuthenticationServiceForApi(): AuthenticationServiceInterface
     {
         $authenticationService = new AuthenticationService([
             'unauthenticatedRedirect' => null,
@@ -143,7 +142,7 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
     /**
      * @return \Authentication\AuthenticationServiceInterface
      */
-    private function getAuthenticationServiceForHtml(): AuthenticationServiceInterface
+    private function getAuthenticationServiceForPage(): AuthenticationServiceInterface
     {
         $authenticationService = new AuthenticationService([
             'unauthenticatedRedirect' => '/users/login',
