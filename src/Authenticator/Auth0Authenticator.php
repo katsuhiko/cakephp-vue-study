@@ -10,7 +10,7 @@ use Authentication\Authenticator\ResultInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
 /**
- * Session Authenticator
+ * Auth0 Authenticator
  */
 class Auth0Authenticator extends AbstractAuthenticator
 {
@@ -54,8 +54,6 @@ class Auth0Authenticator extends AbstractAuthenticator
     }
 
     /**
-     * Authenticate a user using session data.
-     *
      * @param \Psr\Http\Message\ServerRequestInterface $request request
      * @return \Authentication\Authenticator\ResultInterface
      */
