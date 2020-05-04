@@ -134,6 +134,7 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
         // Authenticator から呼び出す必要がある。
         // $authenticationService->loadIdentifier('Authentication.Password');
 
+        $authenticationService->loadAuthenticator('Swagger');
         $authenticationService->loadAuthenticator('Auth0');
 
         return $authenticationService;
