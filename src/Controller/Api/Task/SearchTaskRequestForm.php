@@ -20,7 +20,7 @@ class SearchTaskRequestForm extends Form
      *   required=false,
      *   description="タスク内容検索条件",
      *   @OA\Schema(type="string"),
-     *   example="作業"
+     *   example="チェック"
      * )
      *
      * @var string|null
