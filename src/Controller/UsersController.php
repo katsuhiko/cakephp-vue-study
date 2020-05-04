@@ -20,7 +20,6 @@ class UsersController extends AppController
     public function beforeFilter(EventInterface $event): void
     {
         parent::beforeFilter($event);
-        // Allow login and add
         $this->Authentication->addUnauthenticatedActions(['login', 'logout', 'callback']);
     }
 
