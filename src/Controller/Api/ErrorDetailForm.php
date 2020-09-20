@@ -22,7 +22,6 @@ class ErrorDetailForm extends Form
      *   description="エラーキー",
      *   example="task.id.required",
      * )
-     *
      * @var string
      */
     private $key = '';
@@ -34,7 +33,6 @@ class ErrorDetailForm extends Form
      *   description="エラーメッセージ",
      *   example="必須入力項目です。",
      * )
-     *
      * @var string
      */
     private $message = '';

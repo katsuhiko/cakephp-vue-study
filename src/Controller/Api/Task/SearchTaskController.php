@@ -30,7 +30,6 @@ class SearchTaskController extends AppController
      *     ref="#/components/responses/ValidationErrorResponseForm",
      *   ),
      * )
-     *
      * @return void
      */
     public function execute(): void

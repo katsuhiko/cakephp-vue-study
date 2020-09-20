@@ -56,3 +56,12 @@ renameColumn
 addIndex
 addForeignKey
 ```
+
+## ライブラリの最新化
+
+## PHP
+
+```
+docker exec -it app php composer.phar update
+```
+

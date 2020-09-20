@@ -27,7 +27,6 @@ class UpdateTaskRequestForm extends Form
      *   @OA\Schema(type="string"),
      *   example="c366f5be-360b-45cc-8282-65c80e434f72"
      * )
-     *
      * @var string
      */
     private $id;
@@ -39,7 +38,6 @@ class UpdateTaskRequestForm extends Form
      *   description="タスク内容",
      *   example="朝の身だしなみチェック",
      * )
-     *
      * @var string
      */
     private $description;

@@ -21,7 +21,6 @@ class DeleteTaskRequestForm extends Form
      *   @OA\Schema(type="string"),
      *   example="c366f5be-360b-45cc-8282-65c80e434f72"
      * )
-     *
      * @var string
      */
     private $id;

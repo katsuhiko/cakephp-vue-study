@@ -24,7 +24,6 @@ class CreateTaskRequestForm extends Form
      *   description="タスク内容",
      *   example="朝の身だしなみチェック",
      * )
-     *
      * @var string
      */
     private $description;

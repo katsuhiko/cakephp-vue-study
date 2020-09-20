@@ -31,7 +31,6 @@ class ViewTaskController extends AppController
      *     ref="#/components/responses/ValidationErrorResponseForm",
      *   ),
      * )
-     *
      * @param string $id id
      * @return void
      */

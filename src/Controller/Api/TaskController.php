@@ -73,7 +73,6 @@ class TaskController extends AppController
      *     ),
      *   ),
      * )
-     *
      * @return void
      */
     public function search(): void
@@ -143,7 +142,6 @@ class TaskController extends AppController
      *     ),
      *   ),
      * )
-     *
      * @param string $id id
      * @return void
      */
@@ -207,7 +205,6 @@ class TaskController extends AppController
      *     ),
      *   ),
      * )
-     *
      * @return void
      * @throws \App\Exception\ApplicationException
      */
@@ -291,7 +288,6 @@ class TaskController extends AppController
      *     ),
      *   ),
      * )
-     *
      * @param string $id id
      * @return void
      * @throws \App\Exception\ApplicationException
@@ -350,7 +346,6 @@ class TaskController extends AppController
      *     ),
      *   ),
      * )
-     *
      * @param string $id id
      * @return void
      * @throws \App\Exception\ApplicationException

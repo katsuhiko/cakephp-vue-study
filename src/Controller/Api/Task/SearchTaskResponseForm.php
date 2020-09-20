@@ -15,7 +15,6 @@ use Cake\Form\Form;
  *   description="OK",
  *   @OA\JsonContent(ref="#/components/schemas/SearchTaskResponseForm"),
  * )
- *
  * @OA\Schema(
  *   description="タスク検索レスポンス情報",
  *   type="object",
@@ -30,7 +29,6 @@ class SearchTaskResponseForm extends Form
      *   description="タスク一覧情報",
      *   @OA\Items(ref="#/components/schemas/TaskDetailForm"),
      * )
-     *
      * @var \App\Controller\Api\Task\TaskDetailForm[]
      */
     private $data;

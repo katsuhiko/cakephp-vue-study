@@ -16,7 +16,6 @@ use Cake\Utility\Hash;
  *   description="バリデーションエラー",
  *   @OA\JsonContent(ref="#/components/schemas/ValidationErrorResponseForm"),
  * )
- *
  * @OA\Schema(
  *   description="バリデーションエラーレスポンス情報",
  *   type="object",
@@ -31,7 +30,6 @@ class ValidationErrorResponseForm extends Form
      *   description="エラー一覧情報",
      *   @OA\Items(ref="#/components/schemas/ErrorDetailForm"),
      * )
-     *
      * @var \App\Controller\Api\ErrorDetailForm[]
      */
     private $errors = [];

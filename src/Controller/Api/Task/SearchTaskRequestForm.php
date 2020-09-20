@@ -22,7 +22,6 @@ class SearchTaskRequestForm extends Form
      *   @OA\Schema(type="string"),
      *   example="チェック"
      * )
-     *
      * @var string|null
      */
     private $descriptionLike;

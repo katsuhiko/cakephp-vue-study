@@ -28,7 +28,7 @@ class CreateTaskAdapter implements CreateTaskCommandPort
         $taskEntity->description = $taskArray['description'];
 
         if (!$Tasks->save($taskEntity, ['atomic' => false, 'checkExisting' => false])) {
-            throw new DomainSystemException("登録できませんでした。");
+            throw new DomainSystemException('登録できませんでした。');
         }
 
         return $taskEntity->toModel();

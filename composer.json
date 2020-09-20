@@ -14,11 +14,11 @@
         "mobiledetect/mobiledetectlib": "^2.8"
     },
     "require-dev": {
-        "cakephp/bake": "^2.0.3",
-        "cakephp/cakephp-codesniffer": "~4.0.0",
+        "cakephp/bake": "^2.0",
+        "cakephp/cakephp-codesniffer": "~4.0",
         "cakephp/debug_kit": "^4.0",
         "josegonzalez/dotenv": "^3.2",
-        "phpstan/phpstan": "^0.12.14",
+        "phpstan/phpstan": "^0.12",
         "phpunit/phpunit": "^8.5",
         "psy/psysh": "@stable",
         "sizuhiko/cake_fabricate": "dev-cakephp4",

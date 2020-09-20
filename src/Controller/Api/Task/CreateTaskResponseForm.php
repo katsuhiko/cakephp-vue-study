@@ -14,7 +14,6 @@ use Cake\Form\Form;
  *   description="OK",
  *   @OA\JsonContent(ref="#/components/schemas/CreateTaskResponseForm"),
  * )
- *
  * @OA\Schema(
  *   description="タスク登録レスポンス情報",
  *   type="object",
@@ -29,7 +28,6 @@ class CreateTaskResponseForm extends Form
      *   description="タスクID情報",
      *   ref="#/components/schemas/TaskIdForm",
      * )
-     *
      * @var \App\Controller\Api\Task\TaskIdForm
      */
     private $id;

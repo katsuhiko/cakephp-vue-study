@@ -18,7 +18,6 @@ use Cake\Utility\Hash;
  *   description="アプリケーションエラー",
  *   @OA\JsonContent(ref="#/components/schemas/ApplicationErrorResponseForm"),
  * )
- *
  * @OA\Schema(
  *   description="アプリケーションエラーレスポンス情報",
  *   type="object",
@@ -33,7 +32,6 @@ class ApplicationErrorResponseForm extends Form
      *   description="エラー一覧情報",
      *   @OA\Items(ref="#/components/schemas/ErrorDetailForm"),
      * )
-     *
      * @var \App\Controller\Api\ErrorDetailForm[]
      */
     private $errors = [];

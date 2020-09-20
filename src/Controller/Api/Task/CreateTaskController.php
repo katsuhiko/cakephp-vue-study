@@ -33,7 +33,6 @@ class CreateTaskController extends AppController
      *     ref="#/components/responses/ValidationErrorResponseForm",
      *   ),
      * )
-     *
      * @return void
      */
     public function execute(): void
